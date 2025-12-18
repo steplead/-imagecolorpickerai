@@ -50,10 +50,20 @@ export default async function Page({ params }) {
 
                 {/* Hero Section */}
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100">
-                    <div
-                        className="h-64 w-full transition-colors duration-500"
-                        style={{ backgroundColor: color.hex }}
-                    ></div>
+                    <div className="h-64 w-full relative group">
+                        {/* Fallback color background */}
+                        <div
+                            className="absolute inset-0 z-0"
+                            style={{ backgroundColor: color.hex }}
+                        />
+                        {/* Optimized Texture Image */}
+                        <img
+                            src={`/images/colors/${color.id}.webp`}
+                            alt={`${color.name} - Traditional Chinese Color Texture`}
+                            className="w-full h-full object-cover relative z-10 transition-opacity duration-500 hover:opacity-90"
+                            loading="eager"
+                        />
+                    </div>
 
                     <div className="p-8">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
