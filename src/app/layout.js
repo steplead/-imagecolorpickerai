@@ -26,23 +26,6 @@ import Header from "@/components/Header";
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-3SWWDX8EVF"
-        />
-        <script
-          id="google-analytics"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-3SWWDX8EVF');
-            `,
-          }}
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-neutral-50 text-neutral-900`}
         suppressHydrationWarning
@@ -51,6 +34,18 @@ export default function RootLayout({ children }) {
         <div className="pt-16">
           {children}
         </div>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-3SWWDX8EVF"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-3SWWDX8EVF');
+          `}
+        </Script>
       </body>
     </html>
   );
