@@ -5,6 +5,8 @@ import chineseColors from '../../../data/chineseColors.json';
 import WallpaperGenerator from '../../../components/WallpaperGenerator';
 import ColorHarmony from '../../../components/ColorHarmony';
 import ColorActions from '../../../components/ColorActions';
+import ColorTexture from '../../../components/ColorTexture';
+import ColorComparison from '../../../components/ColorComparison';
 
 // 1. Generate Static Params for all 500+ colors
 export async function generateStaticParams() {
@@ -37,6 +39,11 @@ export default async function Page({ params }) {
         notFound();
     }
 
+    // Find related colors for comparison (sharing tags)
+    const relatedColors = chineseColors
+        .filter(c => c.id !== color.id && (c.tags || []).some(t => (color.tags || []).includes(t)))
+        .slice(0, 4);
+
     // Calculate RGB for display
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color.hex);
     const rgb = result
@@ -46,9 +53,6 @@ export default async function Page({ params }) {
     return (
         <div className="min-h-screen bg-neutral-50 flex justify-center p-4 py-12 font-sans">
             <div className="max-w-3xl w-full">
-                <Link href="/" className="inline-flex items-center text-sm text-neutral-400 hover:text-neutral-900 mb-8 transition">
-                    <ArrowLeft className="w-4 h-4 mr-1" /> Back to Tool
-                </Link>
 
                 {/* Hero Section */}
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100">
@@ -58,12 +62,10 @@ export default async function Page({ params }) {
                             className="absolute inset-0 z-0"
                             style={{ backgroundColor: color.hex }}
                         />
-                        {/* Optimized Texture Image */}
-                        <img
+                        {/* Optimized Texture Image - Guarded Client Component */}
+                        <ColorTexture
                             src={`/images/colors/${color.id}.webp`}
                             alt={`${color.name} - Traditional Chinese Color Texture`}
-                            className="w-full h-full object-cover relative z-10 transition-opacity duration-500 hover:opacity-90"
-                            loading="eager"
                         />
                     </div>
 
@@ -110,6 +112,9 @@ export default async function Page({ params }) {
                         <div className="border-t mt-12 pt-12">
                             <WallpaperGenerator colorName={color.name} hex={color.hex} chinese={color.chinese} />
                         </div>
+
+                        {/* Color Comparison (SEO Hub Strategy) */}
+                        <ColorComparison currentColor={color} relatedColors={relatedColors} />
                     </div>
                 </div>
 

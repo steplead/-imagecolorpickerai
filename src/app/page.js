@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ColorThief from 'colorthief';
 import { Upload, Image as ImageIcon, ArrowRight, Palette, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
@@ -15,14 +15,50 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const imgRef = useRef(null);
 
+  // 1. Load state from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedImage = localStorage.getItem('picker_image');
+      const savedColors = localStorage.getItem('picker_colors');
+      const savedSelected = localStorage.getItem('picker_selected');
+
+      if (savedImage) setImage(savedImage);
+      if (savedColors) setColors(JSON.parse(savedColors));
+      if (savedSelected) {
+        setSelectedColor(savedSelected);
+        const result = findClosestChineseColor(savedSelected);
+        setMatch(result);
+      }
+    }
+  }, []);
+
+  // 2. Save state to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (image) localStorage.setItem('picker_image', image);
+      if (colors.length > 0) localStorage.setItem('picker_colors', JSON.stringify(colors));
+      if (selectedColor) localStorage.setItem('picker_selected', selectedColor);
+    }
+  }, [image, colors, selectedColor]);
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setImage(url);
-      setColors([]);
-      setSelectedColor(null);
-      setMatch(null);
+      // Use FileReader to get Base64 for persistence
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target.result;
+        setImage(base64);
+        setColors([]);
+        setSelectedColor(null);
+        setMatch(null);
+        // Reset localStorage for new image
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('picker_selected');
+          localStorage.removeItem('picker_colors');
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -32,17 +68,13 @@ export default function Home() {
       if (imgRef.current && imgRef.current.complete) {
         const colorThief = new ColorThief();
         const palette = colorThief.getPalette(imgRef.current, 8);
-        console.log("Extracted palette:", palette);
         const hexPalette = palette.map(rgb =>
           "#" + ((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1)
         );
         setColors(hexPalette);
-      } else {
-        console.warn("Image not ready for extraction");
       }
     } catch (err) {
       console.error("Color extraction failed:", err);
-      alert("Could not extract colors from this image. Try another one.");
     }
   };
 
@@ -52,26 +84,20 @@ export default function Home() {
     setMatch(result);
   };
 
-  const handleCopy = (hex) => {
-    navigator.clipboard.writeText(hex);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const clearTool = () => {
+    setImage(null);
+    setColors([]);
+    setSelectedColor(null);
+    setMatch(null);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('picker_image');
+      localStorage.removeItem('picker_colors');
+      localStorage.removeItem('picker_selected');
+    }
   };
 
   return (
     <main className="flex flex-col items-center min-h-screen p-4 sm:p-8 bg-neutral-50 text-neutral-800 font-sans">
-      {/* Header */}
-      <header className="w-full max-w-4xl flex justify-between items-center mb-12">
-        <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-          <Palette className="w-6 h-6 text-red-600" />
-          <span>Image Color Picker</span>
-        </h1>
-        <nav className="text-sm font-medium text-neutral-500 gap-6 flex">
-          <Link href="/colors/red" className="hover:text-red-600 transition">Red</Link>
-          <Link href="/colors/blue" className="hover:text-blue-600 transition">Blue</Link>
-          <Link href="/colors/green" className="hover:text-emerald-600 transition">Green</Link>
-        </nav>
-      </header>
 
       {/* Main Tool Area */}
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100">
@@ -87,19 +113,27 @@ export default function Home() {
             </label>
           ) : (
             <>
-              <img
-                ref={imgRef}
-                src={image}
-                alt="Uploaded"
-                className="w-full h-full object-contain max-h-[500px]"
-                onLoad={() => setTimeout(extractColors, 100)}
-              />
+              {typeof image === 'string' && image && (
+                <img
+                  ref={imgRef}
+                  src={image}
+                  alt="Uploaded"
+                  className="w-full h-full object-contain max-h-[500px]"
+                  onLoad={() => setTimeout(extractColors, 100)}
+                />
+              )}
               <div className="absolute bottom-4 right-4 flex gap-2">
                 <button
                   onClick={extractColors}
                   className="bg-neutral-900 text-white px-4 py-2 rounded-full shadow-sm text-sm font-medium hover:bg-neutral-800 transition backdrop-blur"
                 >
                   Regenerate
+                </button>
+                <button
+                  onClick={clearTool}
+                  className="bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-sm text-sm font-medium text-red-500 hover:bg-neutral-50 transition"
+                >
+                  Clear
                 </button>
                 <label className="bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-sm text-sm font-medium cursor-pointer hover:bg-white transition">
                   New Image
@@ -179,8 +213,47 @@ export default function Home() {
       {/* History Section */}
       <RecentPicks lastPick={match} />
 
-      {/* SEO Content (Bottom Fold) */}
-      <section className="max-w-2xl mt-16 text-neutral-600 space-y-6">
+      {/* Mood Clusters (SEO Hub Strategy) */}
+      <section className="max-w-4xl w-full mt-24 mb-16">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-2xl font-bold text-neutral-900">Discover by Mood</h2>
+            <p className="text-sm text-neutral-400 font-serif italic">Explore traditional collections curated by artistic intent.</p>
+          </div>
+          <Link href="/colors/nature" className="text-[10px] font-bold text-red-600 hover:text-red-700 flex items-center gap-1 uppercase tracking-widest transition-colors">
+            View All <ArrowRight className="w-3 h-3" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { id: 'red', name: 'Imperial Red', style: 'bg-gradient-to-br from-red-600/90 to-amber-900/90' },
+            { id: 'green', name: 'Jade Valley', style: 'bg-gradient-to-br from-emerald-700/90 to-teal-900/90' },
+            { id: 'blue', name: 'Ocean Silk', style: 'bg-gradient-to-br from-indigo-600/90 to-blue-950/90' },
+            { id: 'warm', name: 'Sunset Embers', style: 'bg-gradient-to-br from-orange-500/90 to-rose-900/90' },
+          ].map((mood) => (
+            <Link
+              key={mood.id}
+              href={`/colors/${mood.id}`}
+              className={`relative h-44 rounded-[2rem] overflow-hidden group transition-all hover:scale-[1.03] active:scale-95 shadow-lg hover:shadow-2xl hover:shadow-neutral-200 ${mood.style} border border-white/20`}
+            >
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)] opacity-50" />
+              <div className="absolute bottom-6 left-6">
+                <span className="text-white font-bold text-lg tracking-tight block drop-shadow-md">
+                  {mood.name}
+                </span>
+                <span className="text-white/60 text-[10px] uppercase font-bold tracking-widest mt-1 block group-hover:text-white transition-colors">
+                  Archetype
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="max-w-2xl mt-16 text-neutral-600 space-y-6 pb-12">
         <h2 className="text-xl font-bold text-neutral-900">About Image Color Picker</h2>
         <p>
           This free tool allows you to extract precise hex codes from any image.

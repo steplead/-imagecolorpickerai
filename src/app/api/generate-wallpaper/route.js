@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
 
+export const runtime = 'edge';
+
 export async function POST(request) {
     try {
         const { prompt } = await request.json();
@@ -28,20 +30,26 @@ export async function POST(request) {
             }
         );
 
-        // Replicate returns an array of URLs, e.g. ["https://..."]
-        // We map it to the expected Frontend format: { images: [{ url: ... }] }
-
-        // Check if output is array or single string stream
+        // Replicate returns an array of URLs or strings
         const imageUrl = Array.isArray(output) ? output[0] : output;
 
-        // Some flux models return ReadableStream, flux-schnell usually returns array of strings
         if (!imageUrl) {
-            throw new Error("No image URL returned from Replicate");
+            throw new Error("No image data returned from AI model");
         }
 
-        return NextResponse.json({
-            images: [{ url: imageUrl }] // Mocking standard response structure
-        });
+        // Ensure it's a string. If it's a ReadableStream or object, it might be a binary response.
+        if (typeof imageUrl !== 'string' && typeof imageUrl.toString === 'function') {
+            const urlString = imageUrl.toString();
+            if (urlString.startsWith('http')) {
+                return NextResponse.json({ url: urlString });
+            }
+        }
+
+        if (typeof imageUrl === 'string' && imageUrl.startsWith('http')) {
+            return NextResponse.json({ url: imageUrl });
+        }
+
+        throw new Error("AI returned an invalid image format (not a URL)");
 
     } catch (error) {
         console.error("Replicate Error:", error);

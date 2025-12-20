@@ -34,5 +34,22 @@ export default function sitemap() {
         priority: 0.9,
     }));
 
-    return [...routes, ...colorRoutes, ...categoryRoutes];
+    // 4. Comparison Pages (Programmatic SEO Hub)
+    const vsRoutes = [];
+    const tags = ['red', 'blue', 'green', 'warm'];
+    tags.forEach(tag => {
+        const colors = chineseColors.filter(c => c.tags && c.tags.includes(tag)).slice(0, 3);
+        for (let i = 0; i < colors.length; i++) {
+            for (let j = i + 1; j < colors.length; j++) {
+                vsRoutes.push({
+                    url: `${baseUrl}/compare/${colors[i].id}-vs-${colors[j].id}`,
+                    lastModified: new Date().toISOString().split('T')[0],
+                    changeFrequency: 'monthly',
+                    priority: 0.7,
+                });
+            }
+        }
+    });
+
+    return [...routes, ...colorRoutes, ...categoryRoutes, ...vsRoutes];
 }

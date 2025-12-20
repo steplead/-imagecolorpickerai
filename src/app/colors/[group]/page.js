@@ -37,28 +37,58 @@ export default async function Page({ params }) {
     const { group } = await params;
     if (!group) return notFound();
 
-    const decodedGroup = decodeURIComponent(group);
+    const decodedGroup = decodeURIComponent(group).toLowerCase();
     const colors = getColorsByTag(decodedGroup);
 
     if (!colors || colors.length === 0) {
         notFound();
     }
 
-    const capitalized = decodedGroup.charAt(0).toUpperCase() + decodedGroup.slice(1);
+    const ARCHETYPES = {
+        red: {
+            title: "The Imperial Palace",
+            desc: "Colors of majesty and dynasty, inspired by the vermilion walls and golden silk of China's ancient forbidden halls."
+        },
+        blue: {
+            title: "Deep Ocean Silk",
+            desc: "Tranquil and profound shades of indigo and azure, reflecting the endless horizons of the Eastern seas."
+        },
+        green: {
+            title: "The Jade Valley",
+            desc: "Fresh, organic tones of bamboo, forest moss, and sacred jade, bringing the serenity of nature to your palette."
+        },
+        warm: {
+            title: "Sunset Embers",
+            desc: "Vitality and warmth captured in the orange-gold glow of a late afternoon sun over the misty mountains."
+        },
+        cool: {
+            title: "Misty Peaks",
+            desc: "Distanced and ethereal shades of morning fog, mountain ice, and the quiet stillness of high-altitude clouds."
+        },
+        nature: {
+            title: "Wild Flora & Moss",
+            desc: "Earth-toned pigments derived from the roots, leaves, and minerals of the ancient landscape."
+        }
+    };
+
+    const currentArchetype = ARCHETYPES[decodedGroup] || {
+        title: `${decodedGroup.charAt(0).toUpperCase() + decodedGroup.slice(1)} Collections`,
+        desc: `A curated selection of traditional Chinese ${decodedGroup} shades, each with a story of culture and history.`
+    };
 
     return (
         <div className="min-h-screen bg-neutral-50 p-4 py-12 font-sans">
             <div className="max-w-4xl mx-auto">
-                <div className="mb-10">
-                    <Link href="/" className="inline-flex items-center text-sm text-neutral-400 hover:text-neutral-900 mb-4 transition">
-                        <ArrowLeft className="w-4 h-4 mr-1" /> Back to Tool
-                    </Link>
-                    <h1 className="text-3xl font-bold text-neutral-900 mb-2">
-                        <span className="capitalize">{group}</span> Colors
+                <div className="mb-12 text-center md:text-left">
+                    <h1 className="text-5xl font-bold text-neutral-900 mb-4 tracking-tight">
+                        {currentArchetype.title}
                     </h1>
-                    <p className="text-neutral-500">
-                        Found {colors.length} traditional Chinese colors tagged as "{group}".
+                    <p className="text-lg text-neutral-500 max-w-2xl font-serif italic leading-relaxed">
+                        {currentArchetype.desc}
                     </p>
+                    <div className="mt-4 text-xs font-bold text-neutral-300 uppercase tracking-widest">
+                        {colors.length} Masterpiece Colors Found
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

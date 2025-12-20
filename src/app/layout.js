@@ -20,11 +20,19 @@ export const metadata = {
   },
 };
 
+import Header from "@/components/Header";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-neutral-50 text-neutral-900`}>
-        {children}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-neutral-50 text-neutral-900`}
+        suppressHydrationWarning
+      >
+        <Header />
+        <div className="pt-16">
+          {children}
+        </div>
       </body>
     </html>
   );
