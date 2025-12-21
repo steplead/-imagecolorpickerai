@@ -1,0 +1,12 @@
+name: Pinterest Auto-Post
+on:
+  schedule:
+    - cron: '0 * * * *' # Every hour
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Post
+        run: |
+          curl -X GET "https://imagecolorpickerai.com/api/pinterest/auto-post" \
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
