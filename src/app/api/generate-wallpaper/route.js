@@ -9,8 +9,6 @@ export async function POST(request) {
     try {
         const { prompt } = await request.json();
 
-        // 1. Try process.env first (standard)
-        // 2. Fallback to getRequestContext().env for Cloudflare Runtime bindings
         const envCtx = getRequestContext().env;
         const token = process.env.REPLICATE_API_TOKEN || (envCtx ? envCtx.REPLICATE_API_TOKEN : null);
 
@@ -18,14 +16,12 @@ export async function POST(request) {
             console.error("Missing REPLICATE_API_TOKEN in environment.");
 
             // Debug: List available keys (excluding values for security)
-            const processKeys = Object.keys(process.env).filter(k => !k.startsWith('npm_') && !k.startsWith('NEXT_'));
-            const ctxKeys = envCtx ? Object.keys(envCtx) : ['No Cloudflare Context'];
+            const processKeys = Object.keys(process.env).filter(k => !k.startsWith('npm_') && !k.startsWith('NEXT_')).join(', ');
+            const ctxKeys = envCtx ? Object.keys(envCtx).join(', ') : 'No Cloudflare Context';
 
             return NextResponse.json({
-                error: "Missing REPLICATE_API_TOKEN.",
-                debug_info: "Please verify you have added 'REPLICATE_API_TOKEN' in Cloudflare Pages -> Settings -> Environment Variables.",
-                available_process_env: processKeys,
-                available_cloudflare_env: ctxKeys
+                error: `Missing REPLICATE_API_TOKEN. [CF Keys: ${ctxKeys || 'None'}] [Process Keys: ${processKeys || 'None'}]`,
+                debug_info: "Please verify you have added 'REPLICATE_API_TOKEN' in Cloudflare Pages -> Settings -> Environment Variables for BOTH Production and Preview.",
             }, { status: 500 });
         }
 
