@@ -6,6 +6,7 @@ import { Upload, Image as ImageIcon, ArrowRight, Palette, Copy, Check } from 'lu
 import Link from 'next/link';
 import { findClosestChineseColor } from '../utils/colorUtils';
 import RecentPicks from '../components/RecentPicks';
+import PinterestGallery from '../components/PinterestGallery';
 
 export default function Home() {
   const [image, setImage] = useState(null);
@@ -212,6 +213,9 @@ export default function Home() {
 
       {/* History Section */}
       <RecentPicks lastPick={match} />
+
+      {/* Social Gallery (Phase 16) */}
+      <PinterestGallery />
 
       {/* Mood Clusters (SEO Hub Strategy) */}
       <section className="max-w-4xl w-full mt-24 mb-16">
