@@ -2,6 +2,7 @@ name: Pinterest Auto-Post
 on:
   schedule:
     - cron: '0 * * * *' # Every hour
+  workflow_dispatch: # Allows manual trigger button in GitHub UI
 jobs:
   post:
     runs-on: ubuntu-latest
