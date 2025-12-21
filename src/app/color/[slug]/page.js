@@ -7,6 +7,7 @@ import ColorHarmony from '../../../components/ColorHarmony';
 import ColorActions from '../../../components/ColorActions';
 import ColorTexture from '../../../components/ColorTexture';
 import ColorComparison from '../../../components/ColorComparison';
+import PaletteDisplay from '../../../components/PaletteDisplay';
 
 // 1. Generate Static Params for all 500+ colors
 export async function generateStaticParams() {
@@ -107,6 +108,9 @@ export default async function Page({ params }) {
 
                         {/* Color Harmonies */}
                         <ColorHarmony hex={color.hex} />
+
+                        {/* Palette Generator (Phase 17) */}
+                        <PaletteDisplay baseColor={color.hex} />
 
                         {/* AI Generator */}
                         <div className="border-t mt-12 pt-12">
