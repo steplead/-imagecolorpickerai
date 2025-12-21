@@ -1,13 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Image as ImageIcon, Loader2, Sparkles } from 'lucide-react';
+import { Image as ImageIcon, Loader2, Sparkles, Share2 } from 'lucide-react';
 
 export default function WallpaperGenerator({ colorName, hex, chinese }) {
     const [style, setStyle] = useState('ink');
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
     const [error, setError] = useState(null);
+    const [pinning, setPinning] = useState(false);
+    const [pinned, setPinned] = useState(false);
 
     const STYLES = {
         ink: {
@@ -74,6 +76,32 @@ export default function WallpaperGenerator({ colorName, hex, chinese }) {
         }
     };
 
+    const shareToPinterest = async () => {
+        setPinning(true);
+        setError(null);
+        try {
+            const pageUrl = window.location.href;
+            const res = await fetch('/api/pinterest/post', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    imageUrl,
+                    title: `${chinese} (${colorName}) - Traditional Chinese Color Art`,
+                    description: `An aesthetic ${STYLES[style].name} wallpaper inspired by the traditional Chinese color ${chinese} (${colorName}). Generated with AI on ImageColorPickerAI.com`,
+                    link: pageUrl
+                })
+            });
+
+            const data = await res.json();
+            if (data.error) throw new Error(data.error);
+            setPinned(true);
+        } catch (err) {
+            setError(err.message || 'Failed to pin');
+        } finally {
+            setPinning(false);
+        }
+    };
+
     return (
         <div className="mt-8 p-6 bg-neutral-100 rounded-xl border border-neutral-200">
             <div className="flex items-center justify-between mb-4">
@@ -95,7 +123,10 @@ export default function WallpaperGenerator({ colorName, hex, chinese }) {
                     {Object.entries(STYLES).map(([id, info]) => (
                         <button
                             key={id}
-                            onClick={() => setStyle(id)}
+                            onClick={() => {
+                                setStyle(id);
+                                setPinned(false); // Reset pinned status if style changes
+                            }}
                             className={`p-3 text-left rounded-lg border transition-all ${style === id
                                 ? 'bg-white border-neutral-900 shadow-sm'
                                 : 'bg-white/50 border-neutral-200 hover:border-neutral-400 text-neutral-500'}`}
@@ -135,19 +166,34 @@ export default function WallpaperGenerator({ colorName, hex, chinese }) {
                                     {STYLES[style].name}
                                 </div>
                             </div>
-                            <a
-                                href={imageUrl}
-                                download={`wallpaper-${colorName}.jpg`}
-                                className="block w-full text-center py-3 bg-white border border-neutral-200 rounded-xl text-sm font-semibold hover:bg-neutral-50 transition-colors shadow-sm"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Download High-Res
-                            </a>
+                            <div className="grid grid-cols-2 gap-2">
+                                <a
+                                    href={imageUrl}
+                                    download={`wallpaper-${colorName}.jpg`}
+                                    className="text-center py-3 bg-white border border-neutral-200 rounded-xl text-xs font-bold hover:bg-neutral-50 transition-colors shadow-sm"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Download
+                                </a>
+                                <button
+                                    onClick={shareToPinterest}
+                                    disabled={pinning || pinned}
+                                    className={`flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold transition-all shadow-sm ${pinned
+                                        ? 'bg-green-50 text-green-700 border border-green-200'
+                                        : 'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100'}`}
+                                >
+                                    {pinning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Share2 className="w-4 h-4" />}
+                                    {pinned ? 'Shared!' : pinning ? 'Pinning...' : 'to Pinterest'}
+                                </button>
+                            </div>
                         </>
                     )}
                     <button
-                        onClick={() => setImageUrl(null)}
+                        onClick={() => {
+                            setImageUrl(null);
+                            setPinned(false);
+                        }}
                         className="block w-full text-center text-xs text-neutral-400 hover:text-neutral-900 font-medium transition-colors"
                     >
                         Reset & Try Another Style
