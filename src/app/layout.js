@@ -50,6 +50,11 @@ export const metadata = {
       'pt': '/pt',
     },
   },
+  appleWebApp: {
+    title: 'ColorPicker',
+    statusBarStyle: 'default',
+  },
+  applicationName: 'ColorPicker',
 };
 
 import Header from "@/components/Header";
