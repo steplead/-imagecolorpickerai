@@ -113,5 +113,6 @@ export default async function IdeaCategoryPage({ params }) {
                     </div>
                 </div>
             </main>
-            );
+        </>
+    );
 }
