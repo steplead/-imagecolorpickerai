@@ -217,47 +217,73 @@ export default function Home() {
       {/* Social Gallery (Phase 16) */}
       <PinterestGallery />
 
-      {/* Mood Clusters (SEO Hub Strategy) */}
-      <section className="max-w-4xl w-full mt-24 mb-16">
+      {/* Collections & Moods (Global Encyclopedia Strategy) */}
+      <section className="max-w-6xl w-full mt-24 mb-16 px-4">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-neutral-900">Discover by Mood</h2>
-            <p className="text-sm text-neutral-400 font-serif italic">Explore traditional collections curated by artistic intent.</p>
+            <h2 className="text-3xl font-bold text-neutral-900 tracking-tight">Explore Collections</h2>
+            <p className="text-sm text-neutral-400 font-serif italic mt-1">Journey through the colors of history and culture.</p>
           </div>
-          <Link href="/colors/nature" className="text-[10px] font-bold text-red-600 hover:text-red-700 flex items-center gap-1 uppercase tracking-widest transition-colors">
-            View All <ArrowRight className="w-3 h-3" />
+        </div>
+
+        {/* Primary Collections (Phase 20) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <Link
+            href="/colors/chinese"
+            className="relative h-64 rounded-3xl overflow-hidden group shadow-2xl transition-all hover:scale-[1.01]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-red-700 to-amber-900" />
+            <div className="absolute inset-0 bg-[url('/images/texture-noise.png')] opacity-20" />
+            <div className="absolute top-8 left-8">
+              <span className="bg-white/20 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-white/20">500+ Colors</span>
+            </div>
+            <div className="absolute bottom-8 left-8 text-white">
+              <h3 className="text-3xl font-bold mb-2">Traditional Chinese</h3>
+              <p className="text-red-100 font-serif italic max-w-sm">Colors from the Forbidden City, poetry, and ancient dynasties.</p>
+            </div>
+            <ArrowRight className="absolute bottom-8 right-8 w-6 h-6 text-white opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300" />
+          </Link>
+
+          <Link
+            href="/colors/japanese"
+            className="relative h-64 rounded-3xl overflow-hidden group shadow-2xl transition-all hover:scale-[1.01]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-400 to-rose-300" />
+            <div className="absolute inset-0 bg-[url('/images/texture-noise.png')] opacity-20" />
+            <div className="absolute top-8 left-8">
+              <span className="bg-white/20 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-white/20">New Collection</span>
+            </div>
+            <div className="absolute bottom-8 left-8 text-white">
+              <h3 className="text-3xl font-bold mb-2">Nippon Colors</h3>
+              <p className="text-rose-100 font-serif italic max-w-sm">The harmony of Japan's changing seasons and floral beauty.</p>
+            </div>
+            <ArrowRight className="absolute bottom-8 right-8 w-6 h-6 text-white opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { id: 'red', name: 'Imperial Red', style: 'bg-gradient-to-br from-red-600/90 to-amber-900/90' },
-            { id: 'green', name: 'Jade Valley', style: 'bg-gradient-to-br from-emerald-700/90 to-teal-900/90' },
-            { id: 'blue', name: 'Ocean Silk', style: 'bg-gradient-to-br from-indigo-600/90 to-blue-950/90' },
-            { id: 'warm', name: 'Sunset Embers', style: 'bg-gradient-to-br from-orange-500/90 to-rose-900/90' },
-          ].map((mood) => (
+        {/* Mood Tags */}
+        <div className="flex flex-wrap gap-4 justify-center">
+          {['Red', 'Green', 'Blue', 'Nature', 'Warm', 'Cool'].map(tag => (
             <Link
-              key={mood.id}
-              href={`/colors/${mood.id}`}
-              className={`relative h-44 rounded-[2rem] overflow-hidden group transition-all hover:scale-[1.03] active:scale-95 shadow-lg hover:shadow-2xl hover:shadow-neutral-200 ${mood.style} border border-white/20`}
+              key={tag}
+              href={`/colors/${tag.toLowerCase()}`}
+              className="px-6 py-3 bg-white border border-neutral-100 rounded-xl text-neutral-600 font-medium hover:bg-neutral-50 hover:border-neutral-200 transition shadow-sm"
             >
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)] opacity-50" />
-              <div className="absolute bottom-6 left-6">
-                <span className="text-white font-bold text-lg tracking-tight block drop-shadow-md">
-                  {mood.name}
-                </span>
-                <span className="text-white/60 text-[10px] uppercase font-bold tracking-widest mt-1 block group-hover:text-white transition-colors">
-                  Archetype
-                </span>
-              </div>
+              {tag}
             </Link>
           ))}
         </div>
-      </section>
+        Archetype
+      </span>
+    </div>
+            </Link >
+          ))
+}
+        </div >
+      </section >
 
-      {/* About Section */}
-      <section className="max-w-2xl mt-16 text-neutral-600 space-y-6 pb-12">
+  {/* About Section */ }
+  < section className = "max-w-2xl mt-16 text-neutral-600 space-y-6 pb-12" >
         <h2 className="text-xl font-bold text-neutral-900">About Image Color Picker</h2>
         <p>
           This free tool allows you to extract precise hex codes from any image.
@@ -266,7 +292,7 @@ export default function Home() {
         <p>
           Simply upload a file, click on any extracted color, and discover its name (e.g., Cinnabar, Tea White) and significance in art and history.
         </p>
-      </section>
-    </main>
+      </section >
+    </main >
   );
 }

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Tag } from 'lucide-react';
-import chineseColors from '../../../data/chineseColors.json';
+import { getColorById, getAllColors, getCollectionMetadata, getRelatedColors } from '../../../utils/colorData';
 import WallpaperGenerator from '../../../components/WallpaperGenerator';
 import ColorHarmony from '../../../components/ColorHarmony';
 import ColorActions from '../../../components/ColorActions';
@@ -10,41 +10,44 @@ import ColorComparison from '../../../components/ColorComparison';
 import PaletteDisplay from '../../../components/PaletteDisplay';
 import Visualizer from '../../../components/Visualizer';
 
-// 1. Generate Static Params for all 500+ colors
+// 1. Generate Static Params for all 500+ colors (Global)
 export async function generateStaticParams() {
-    return chineseColors.map((color) => ({
+    const colors = getAllColors();
+    return colors.map((color) => ({
         slug: color.id,
     }));
 }
 
-// 2. Generate SEO Metadata
 export async function generateMetadata({ params }) {
-    const { slug } = await params;
-    const color = chineseColors.find((c) => c.id === slug);
-    if (!color) return {};
+    const color = getColorById(params.slug);
+    if (!color) return { title: 'Color Not Found' };
+
+    const meta = getCollectionMetadata(color.collectionId);
 
     return {
-        title: `${color.name} Hex Code ${color.hex} - Meaning & Wallpaper | ImageColorPickerAI`,
-        description: `Discover the meaning of ${color.name} (${color.chinese}), a traditional Chinese color with Hex Code ${color.hex}. Generate aesthetic wallpapers and see conversions.`,
+        title: `${color.name} (${color.nativeName}) - ${meta.name} | Image Color Picker AI`,
+        description: `${color.name} (${color.nativeName}, ${color.hex}) - ${color.meaning} Part of the ${meta.name} collection.`,
         alternates: {
-            canonical: `https://imagecolorpickerai.com/color/${slug}`,
+            canonical: `https://imagecolorpickerai.com/color/${color.id}`,
         },
     };
 }
 
-// 3. The Page Component
-export default async function Page({ params }) {
-    const { slug } = await params;
-    const color = chineseColors.find((c) => c.id === slug);
+export default function ColorDetail({ params }) {
+    const color = getColorById(params.slug);
 
     if (!color) {
         notFound();
     }
 
-    // Find related colors for comparison (sharing tags)
-    const relatedColors = chineseColors
-        .filter(c => c.id !== color.id && (c.tags || []).some(t => (color.tags || []).includes(t)))
-        .slice(0, 4);
+    // Get Metadata for UI labels
+    const collectionMeta = getCollectionMetadata(color.collectionId);
+
+    // Dynamic Labels based on collection
+    const nativeLabel = color.collectionId === 'japanese' ? 'Kanji' : 'Chinese';
+
+    // Find related colors using Service
+    const relatedColors = getRelatedColors(color);
 
     // Calculate RGB for display
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color.hex);
@@ -67,7 +70,7 @@ export default async function Page({ params }) {
                         {/* Optimized Texture Image - Guarded Client Component */}
                         <ColorTexture
                             src={`/images/colors/${color.id}.webp`}
-                            alt={`${color.name} - Traditional Chinese Color Texture`}
+                            alt={`${color.name} - ${collectionMeta.name} Texture`}
                         />
                     </div>
 
@@ -75,7 +78,7 @@ export default async function Page({ params }) {
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
                             <div>
                                 <h1 className="text-4xl font-bold text-neutral-900 mb-2">{color.name}</h1>
-                                <p className="text-xl font-serif text-neutral-500 italic">{color.chinese} ({color.pinyin})</p>
+                                <p className="text-xl font-serif text-neutral-500 italic">{color.nativeName} ({color.phoneticName})</p>
                             </div>
                             <div className="flex flex-col md:items-end">
                                 <span className="text-3xl font-mono font-bold text-neutral-800 tracking-wider">{color.hex}</span>
@@ -84,10 +87,10 @@ export default async function Page({ params }) {
                         </div>
 
                         {/* Interactive Actions */}
-                        <ColorActions hex={color.hex} rgb={rgb} />
+                        <ColorActions hex={color.hex} rgb={rgb} colorName={color.name} />
 
                         <div className="prose prose-neutral max-w-none mt-10">
-                            <h3 className="text-sm font-bold uppercase text-neutral-400 tracking-wider mb-2">Cultural Meaning</h3>
+                            <h3 className="text-sm font-bold uppercase text-neutral-400 tracking-wider mb-2">Cultural Meaning ({nativeLabel})</h3>
                             <p className="text-lg leading-relaxed text-neutral-700">
                                 {color.meaning}
                             </p>
@@ -118,7 +121,11 @@ export default async function Page({ params }) {
 
                         {/* AI Generator */}
                         <div className="border-t mt-12 pt-12">
-                            <WallpaperGenerator colorName={color.name} hex={color.hex} chinese={color.chinese} />
+                            <WallpaperGenerator
+                                colorName={color.name}
+                                hex={color.hex}
+                                chinese={color.nativeName}
+                            />
                         </div>
 
                         {/* Color Comparison (SEO Hub Strategy) */}
@@ -129,7 +136,7 @@ export default async function Page({ params }) {
                 {/* Affiliate / Upsell Placeholder (Monetization Protocol) */}
                 <div className="mt-12 p-8 bg-sky-50 rounded-2xl border border-sky-100 text-center">
                     <h3 className="text-lg font-bold text-sky-900 mb-2">Love this color?</h3>
-                    <p className="text-sky-700 mb-4">Get the complete Traditional Chinese Color Swatch Guide for Designers.</p>
+                    <p className="text-sky-700 mb-4">Get the complete {collectionMeta.name} Swatch Guide.</p>
                     <button className="px-6 py-2 bg-sky-600 text-white rounded-lg font-medium hover:bg-sky-700 transition">
                         View Design Guide
                     </button>

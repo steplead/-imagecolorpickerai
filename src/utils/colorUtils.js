@@ -1,4 +1,4 @@
-import chineseColors from '../data/chineseColors.json';
+import { getAllColors } from './colorData';
 
 /**
  * Helper: Parse Hex to RGB
@@ -17,16 +17,17 @@ const hexToRgb = (hex) => {
 /**
  * Main Function: Find closest match using Euclidean Distance
  * @param {string} userHex - User provided hex
- * @returns {object} The matched Chinese color object or null
+ * @returns {object} The matched color object or null
  */
-export const findClosestChineseColor = (userHex) => {
+export const findClosestColor = (userHex) => {
     const userRgb = hexToRgb(userHex);
     if (!userRgb) return null;
 
+    const allColors = getAllColors();
     let closestColor = null;
     let minDistance = Infinity;
 
-    chineseColors.forEach((color) => {
+    allColors.forEach((color) => {
         const dbRgb = hexToRgb(color.hex);
         if (!dbRgb) return;
 
@@ -46,6 +47,9 @@ export const findClosestChineseColor = (userHex) => {
     return closestColor;
 };
 
+// Alias for backward compatibility if needed, but we will update callers
+export const findClosestChineseColor = findClosestColor;
+
 /**
  * Helper: Get Colors by Tag (For Category Pages)
  * @param {string} tag - The tag to filter by (e.g. "red")
@@ -54,5 +58,8 @@ export const findClosestChineseColor = (userHex) => {
 export const getColorsByTag = (tag) => {
     if (!tag) return [];
     const searchTag = tag.toLowerCase();
-    return chineseColors.filter(c => c.tags && c.tags.some(t => t.toLowerCase() === searchTag));
+    return getAllColors().filter(c =>
+        (c.tags && c.tags.some(t => t.toLowerCase() === searchTag)) ||
+        (c.collectionId === searchTag)
+    );
 };

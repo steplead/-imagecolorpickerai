@@ -1,0 +1,282 @@
+[
+    {
+        "id": "sakura-iro",
+        "name": "Sakura-iro",
+        "kanji": "桜色",
+        "romaji": "Sakura-iro",
+        "hex": "#FCC9B9",
+        "meaning": "The pale pink color of cherry blossoms. A symbol of spring and fleeting beauty in Japanese culture.",
+        "tags": [
+            "pink",
+            "spring",
+            "nature",
+            "floral"
+        ]
+    },
+    {
+        "id": "momo-iro",
+        "name": "Momo-iro",
+        "kanji": "桃色",
+        "romaji": "Momo-iro",
+        "hex": "#F47983",
+        "meaning": "Peach color. Associated with the Girls' Festival (Hinamatsuri) and longevity.",
+        "tags": [
+            "pink",
+            "fruit",
+            "spring",
+            "festive"
+        ]
+    },
+    {
+        "id": "koubai-iro",
+        "name": "Koubai-iro",
+        "kanji": "紅梅色",
+        "romaji": "Kōbai-iro",
+        "hex": "#DB5A6B",
+        "meaning": "Red plum blossom color. A slightly purplish red, signaling early spring.",
+        "tags": [
+            "red",
+            "pink",
+            "spring",
+            "floral"
+        ]
+    },
+    {
+        "id": "shoujouhi",
+        "name": "Shojouhi",
+        "kanji": "猩々緋",
+        "romaji": "Shōjōhi",
+        "hex": "#DC3023",
+        "meaning": "A vivid scarlet derived from the mythical Shojo creature's blood/hair. Used in Kabuki costumes.",
+        "tags": [
+            "red",
+            "vivid",
+            "mythology",
+            "theatre"
+        ]
+    },
+    {
+        "id": "shu-iro",
+        "name": "Shu-iro",
+        "kanji": "朱色",
+        "romaji": "Shu-iro",
+        "hex": "#FF3500",
+        "meaning": "Cinnabar red. Commonly seen on Torii gates at Shinto shrines, believed to ward off evil.",
+        "tags": [
+            "red",
+            "orange",
+            "spiritual",
+            "mineral"
+        ]
+    },
+    {
+        "id": "yamabuki-iro",
+        "name": "Yamabuki-iro",
+        "kanji": "山吹色",
+        "romaji": "Yamabuki-iro",
+        "hex": "#F8B500",
+        "meaning": "Bright golden yellow of the Japanese kerria flower. Historically associated with gold coins.",
+        "tags": [
+            "yellow",
+            "gold",
+            "wealth",
+            "floral"
+        ]
+    },
+    {
+        "id": "oudo-iro",
+        "name": "Oudo-iro",
+        "kanji": "黄土色",
+        "romaji": "Ōdo-iro",
+        "hex": "#C39143",
+        "meaning": "Ocher or yellow earth color. A traditional pigment used in art and dyeing.",
+        "tags": [
+            "yellow",
+            "brown",
+            "earth",
+            "mineral"
+        ]
+    },
+    {
+        "id": "moegi-iro",
+        "name": "Moegi-iro",
+        "kanji": "萌黄色",
+        "romaji": "Moegi-iro",
+        "hex": "#A8D8B9",
+        "meaning": "Fresh onion chive color. Represents the yellowish-green of young sprouts in early spring.",
+        "tags": [
+            "green",
+            "spring",
+            "nature",
+            "fresh"
+        ]
+    },
+    {
+        "id": "uguisu-iro",
+        "name": "Uguisu-iro",
+        "kanji": "鶯色",
+        "romaji": "Uguisu-iro",
+        "hex": "#928C36",
+        "meaning": "Color of the Japanese Bush Warbler's wings. A muted olive green synonymous with refined taste.",
+        "tags": [
+            "green",
+            "bird",
+            "nature",
+            "subtle"
+        ]
+    },
+    {
+        "id": "tokiwa-iro",
+        "name": "Tokiwa-iro",
+        "kanji": "常盤色",
+        "romaji": "Tokiwa-iro",
+        "hex": "#007B43",
+        "meaning": "Evergreen color. Represents eternity and constancy, like evergreen pine trees.",
+        "tags": [
+            "green",
+            "dark",
+            "nature",
+            "eternity"
+        ]
+    },
+    {
+        "id": "ruri-iro",
+        "name": "Ruri-iro",
+        "kanji": "瑠璃色",
+        "romaji": "Ruri-iro",
+        "hex": "#1E50A2",
+        "meaning": "Lapis Lazuli color. A deep, vivid blue highly generated in Buddhism as one of the Seven Treasures.",
+        "tags": [
+            "blue",
+            "mineral",
+            "spiritual",
+            "vivid"
+        ]
+    },
+    {
+        "id": "ai-iro",
+        "name": "Ai-iro",
+        "kanji": "藍色",
+        "romaji": "Ai-iro",
+        "hex": "#165E83",
+        "meaning": "Indigo blue. The most common dye in Edo Japan, often called 'Japan Blue'.",
+        "tags": [
+            "blue",
+            "dye",
+            "history",
+            "textile"
+        ]
+    },
+    {
+        "id": "katsu-iro",
+        "name": "Katsu-iro",
+        "kanji": "褐色",
+        "romaji": "Katsu-iro",
+        "hex": "#4D4C61",
+        "meaning": "Winning color. A very dark indigo favored by samurai for its auspicious name (homophone for 'victory').",
+        "tags": [
+            "blue",
+            "dark",
+            "warrior",
+            "victory"
+        ]
+    },
+    {
+        "id": "murasaki",
+        "name": "Murasaki",
+        "kanji": "紫",
+        "romaji": "Murasaki",
+        "hex": "#884898",
+        "meaning": "Purple. Historically restricted to the highest ranks of nobility and royalty in Japan.",
+        "tags": [
+            "purple",
+            "royal",
+            "noble",
+            "history"
+        ]
+    },
+    {
+        "id": "fuji-iro",
+        "name": "Fuji-iro",
+        "kanji": "藤色",
+        "romaji": "Fuji-iro",
+        "hex": "#BBBCDE",
+        "meaning": "Wisteria color. A pale purple beloved in the Heian period, often associated with elegant women.",
+        "tags": [
+            "purple",
+            "floral",
+            "elegant",
+            "heian"
+        ]
+    },
+    {
+        "id": "botan-iro",
+        "name": "Botan-iro",
+        "kanji": "牡丹色",
+        "romaji": "Botan-iro",
+        "hex": "#D13460",
+        "meaning": "Peony color. A vivid purplish red symbolizing wealth and feminine beauty.",
+        "tags": [
+            "pink",
+            "red",
+            "floral",
+            "wealth"
+        ]
+    },
+    {
+        "id": "nezumi-iro",
+        "name": "Nezumi-iro",
+        "kanji": "鼠色",
+        "romaji": "Nezumi-iro",
+        "hex": "#949495",
+        "meaning": "Mouse grey. Popular in the Edo period as a discreet, chic color for commoners forbidden from wearing brights.",
+        "tags": [
+            "grey",
+            "edo",
+            "chic",
+            "animal"
+        ]
+    },
+    {
+        "id": "rikyu-cha",
+        "name": "Rikyu-cha",
+        "kanji": "利休茶",
+        "romaji": "Rikyū-cha",
+        "hex": "#8F8667",
+        "meaning": "Rikyu's Tea color. A greenish brown named after the famous tea master Sen no Rikyu.",
+        "tags": [
+            "brown",
+            "green",
+            "tea",
+            "history"
+        ]
+    },
+    {
+        "id": "kuro-tsurubami",
+        "name": "Kuro-tsurubami",
+        "kanji": "黒橡",
+        "romaji": "Kuro-tsurubami",
+        "hex": "#252321",
+        "meaning": "Black acorn. A deep black dye used for high-ranking officials' robes.",
+        "tags": [
+            "black",
+            "dark",
+            "official",
+            "dye"
+        ]
+    },
+    {
+        "id": "go-fun",
+        "name": "Gofun",
+        "kanji": "胡粉",
+        "romaji": "Gofun",
+        "hex": "#FFFFFB",
+        "meaning": "Chalk white. A white pigment made from crushed seashells, used in Nihonga painting and doll making.",
+        "tags": [
+            "white",
+            "art",
+            "pigment",
+            "pure"
+        ]
+    }
+]
