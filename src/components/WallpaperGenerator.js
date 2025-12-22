@@ -155,17 +155,25 @@ export default function WallpaperGenerator({ colorName, hex, chinese }) {
                 <div className="space-y-4 animate-in fade-in zoom-in duration-500">
                     {typeof imageUrl === 'string' && imageUrl && (
                         <>
-                            <div className="relative group">
+                            <figure className="relative group" itemScope itemType="https://schema.org/ImageObject">
+                                <meta itemProp="name" content={`${chinese} (${colorName}) - ${STYLES[style].name} Wallpaper`} />
+                                <meta itemProp="contentUrl" content={imageUrl} />
+
                                 <img
                                     src={imageUrl}
-                                    alt={`Wallpaper for ${colorName}`}
+                                    alt={`${STYLES[style].name} Wallpaper featuring Traditional Chinese Color ${chinese} (${colorName}) - 8K Ultra HD`}
+                                    title={`Click to view full resolution ${chinese} wallpaper`}
                                     className="w-full rounded-xl shadow-2xl border-4 border-white"
+                                    width="1024"
+                                    height="1024"
+                                    loading="eager" // Highlight image should load fast
+                                    itemProp="contentUrl"
                                     onError={(e) => { e.target.style.display = 'none'; }}
                                 />
-                                <div className="absolute top-2 left-2 px-2 py-1 bg-black/50 backdrop-blur text-[10px] text-white rounded-md uppercase tracking-tighter font-bold">
-                                    {STYLES[style].name}
-                                </div>
-                            </div>
+                                <figcaption className="absolute top-2 left-2 px-2 py-1 bg-black/50 backdrop-blur text-[10px] text-white rounded-md uppercase tracking-tighter font-bold" itemProp="caption">
+                                    {STYLES[style].name} • {chinese}
+                                </figcaption>
+                            </figure>
                             <div className="grid grid-cols-2 gap-2">
                                 <a
                                     href={imageUrl}

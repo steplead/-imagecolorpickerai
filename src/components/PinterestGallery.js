@@ -54,18 +54,33 @@ export default function PinterestGallery() {
             ) : (
                 <div className="columns-1 sm:columns-2 lg:columns-4 gap-4 space-y-4">
                     {pins.map((pin) => (
-                        <div key={pin.id} className="relative group break-inside-avoid rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300">
-                            {/* Image */}
+                        <figure
+                            key={pin.id}
+                            className="relative group break-inside-avoid rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 mb-4"
+                            itemScope
+                            itemType="https://schema.org/ImageObject"
+                        >
+                            {/* SEO-Rich Metadata */}
+                            <meta itemProp="name" content={pin.title || 'Traditional Chinese Color Art'} />
+                            <meta itemProp="contentUrl" content={pin.imageUrl} />
+
+                            {/* Optimized Image */}
                             <img
                                 src={pin.imageUrl}
-                                alt={pin.title}
+                                alt={`Traditional Chinese Color Art - ${pin.title || 'Aesthetic Wallpaper'}`}
+                                title="Click to view full resolution on Pinterest"
                                 className="w-full h-auto object-cover"
                                 loading="lazy"
+                                width="600" // Explicit hint for layout stability
+                                height="800"
+                                itemProp="thumbnail"
                             />
 
-                            {/* Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                <h3 className="text-white font-medium text-sm line-clamp-2 mb-2">{pin.title}</h3>
+                            {/* Overlay (Action) */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                <figcaption className="text-white font-medium text-sm line-clamp-2 mb-2" itemProp="caption">
+                                    {pin.title}
+                                </figcaption>
                                 <a
                                     href={pin.link}
                                     target="_blank"
@@ -73,10 +88,10 @@ export default function PinterestGallery() {
                                     className="inline-flex items-center gap-1.5 text-xs text-white/90 hover:text-white font-medium backdrop-blur-md bg-white/20 px-3 py-1.5 rounded-full w-fit"
                                 >
                                     <ExternalLink className="w-3 h-3" />
-                                    View on Pinterest
+                                    View Source
                                 </a>
                             </div>
-                        </div>
+                        </figure>
                     ))}
                 </div>
             )}
