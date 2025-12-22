@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import JsonLd from '../../../components/JsonLd';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Copy, Download, Share2, Palette, Info } from 'lucide-react';
+import { ArrowLeft, Copy, Download, Share2, Palette, Info, Tag } from 'lucide-react';
 import { getColorById, getAllColors, getCollectionMetadata, getRelatedColors } from '../../../utils/colorData';
 import WallpaperGenerator from '../../../components/WallpaperGenerator';
 import ColorHarmony from '../../../components/ColorHarmony';
