@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { getColorsByTag } from '../utils/colorUtils';
+import { getCollectionMetadata } from '../utils/colorData';
 
 export function ColorsCollectionView({ params, locale = 'en' }) {
     const { group } = params;
@@ -13,6 +14,8 @@ export function ColorsCollectionView({ params, locale = 'en' }) {
     if (!colors || colors.length === 0) {
         notFound();
     }
+
+    const collectionMeta = getCollectionMetadata(decodedGroup);
 
     const ARCHETYPES = {
         red: {
@@ -41,10 +44,13 @@ export function ColorsCollectionView({ params, locale = 'en' }) {
         }
     };
 
-    const currentArchetype = ARCHETYPES[decodedGroup] || {
-        title: `${decodedGroup.charAt(0).toUpperCase() + decodedGroup.slice(1)} Collections`,
-        desc: `A curated selection of traditional Chinese ${decodedGroup} shades, each with a story of culture and history.`
-    };
+    // If it's a known collection, use its meta, otherwise fallback to archetypes or default
+    const currentArchetype = (decodedGroup === 'chinese' || decodedGroup === 'japanese' || decodedGroup === 'pantone')
+        ? { title: collectionMeta.name, desc: collectionMeta.description }
+        : ARCHETYPES[decodedGroup] || {
+            title: `${decodedGroup.charAt(0).toUpperCase() + decodedGroup.slice(1)} Collections`,
+            desc: `A curated selection of traditional ${decodedGroup} shades, each with a story of culture and history.`
+        };
 
     const labels = {
         en: {

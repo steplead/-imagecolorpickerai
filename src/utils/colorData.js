@@ -31,11 +31,14 @@ export function getColorById(id) {
 }
 
 export function getCollection(collectionId) {
-    if (collectionId === 'japanese') {
-        return japaneseColors.map(c => normalizeColor(c, 'japanese'));
-    }
-    // Default to Chinese for legacy reasons or explicit request
-    return chineseColors.map(c => normalizeColor(c, 'chinese'));
+    const dataMap = {
+        chinese: chineseColors,
+        japanese: japaneseColors,
+        pantone: pantone2025,
+        nature: natureColors
+    };
+    const data = dataMap[collectionId] || chineseColors;
+    return data.map(c => normalizeColor(c, collectionId || 'chinese'));
 }
 
 export function getRelatedColors(color, limit = 4) {
@@ -69,6 +72,16 @@ export function getCollectionMetadata(collectionId) {
             name: 'Traditional Japanese Colors',
             nativeName: '日本の伝統色 (Nippon no Iro)',
             description: 'Established over 1,000 years ago, representing the changing seasons of Japan.'
+        },
+        pantone: {
+            name: 'Pantone Trends 2025',
+            nativeName: 'Future Aesthetics',
+            description: 'Forecasted color winners and global design trends for the year 2025.'
+        },
+        nature: {
+            name: 'Nature & Earth Palettes',
+            nativeName: 'Organic Origins',
+            description: 'Organic pigments and earth tones derived from the mountains, forests, and oceans.'
         }
     };
     return meta[collectionId] || meta.chinese;
