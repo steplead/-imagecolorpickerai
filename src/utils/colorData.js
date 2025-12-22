@@ -1,20 +1,25 @@
 import chineseColors from '../data/chineseColors.json';
 import japaneseColors from '../data/japaneseColors.json';
+import pantone2025 from '../data/pantone2025.json';
+import natureColors from '../data/natureColors.json';
 
 // Normalize data structure for UI consistency
 const normalizeColor = (color, collectionId) => ({
     ...color,
     collectionId, // 'chinese' | 'japanese'
+    collectionId, // 'chinese' | 'japanese' | 'pantone' | 'nature'
     nativeName: color.chinese || color.kanji,
     phoneticName: color.pinyin || color.romaji,
     // Ensure tags exists
     tags: color.tags || []
 });
 
-// 1. Unified Dataset
+// 2. Global Aggregation
 const ALL_COLORS = [
     ...chineseColors.map(c => normalizeColor(c, 'chinese')),
-    ...japaneseColors.map(c => normalizeColor(c, 'japanese'))
+    ...japaneseColors.map(c => normalizeColor(c, 'japanese')),
+    ...pantone2025.map(c => normalizeColor(c, 'pantone')),
+    ...natureColors.map(c => normalizeColor(c, 'nature'))
 ];
 
 // 2. Data Access Methods

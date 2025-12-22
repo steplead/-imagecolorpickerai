@@ -1,0 +1,82 @@
+[
+    {
+        "id": "n-earth-01",
+        "name": "Deep Moss",
+        "nativeName": "深苔绿",
+        "hex": "#354a21",
+        "r": 53,
+        "g": 74,
+        "b": 33,
+        "c": 76,
+        "m": 43,
+        "y": 95,
+        "k": 47,
+        "meaning": "The color of ancient forests and untouched wilderness. Deep Moss brings a grounding, restorative energy to any space, connecting us back to the earth.",
+        "tags": [
+            "nature",
+            "green",
+            "organic",
+            "forest"
+        ]
+    },
+    {
+        "id": "n-ocean-01",
+        "name": "Pacific Depths",
+        "nativeName": "太平洋蓝",
+        "hex": "#1e3d59",
+        "r": 30,
+        "g": 61,
+        "b": 89,
+        "c": 92,
+        "m": 74,
+        "y": 38,
+        "k": 31,
+        "meaning": "A profound, boundless blue representing the mystery of the open ocean. It evokes silence, depth, and infinite possibility.",
+        "tags": [
+            "nature",
+            "blue",
+            "water",
+            "ocean"
+        ]
+    },
+    {
+        "id": "n-sky-01",
+        "name": "Morning Mist",
+        "nativeName": "晨雾白",
+        "hex": "#e0e0d0",
+        "r": 224,
+        "g": 224,
+        "b": 208,
+        "c": 11,
+        "m": 7,
+        "y": 15,
+        "k": 0,
+        "meaning": "The soft, diffused light of early morning. A neutral tone that clears the mind and offers a blank canvas for new beginnings.",
+        "tags": [
+            "nature",
+            "white",
+            "gray",
+            "sky"
+        ]
+    },
+    {
+        "id": "n-earth-02",
+        "name": "Terracotta Clay",
+        "nativeName": "陶土红",
+        "hex": "#c17c5f",
+        "r": 193,
+        "g": 124,
+        "b": 95,
+        "c": 22,
+        "m": 54,
+        "y": 66,
+        "k": 4,
+        "meaning": "Warm, baked earth functionality. Terracotta represents craftsmanship, home, and the raw beauty of natural materials.",
+        "tags": [
+            "nature",
+            "brown",
+            "orange",
+            "earth"
+        ]
+    }
+]

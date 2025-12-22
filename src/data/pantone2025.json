@@ -1,0 +1,82 @@
+[
+    {
+        "id": "p-2025-01",
+        "name": "Future Dusk",
+        "nativeName": "未来暮色",
+        "hex": "#483b51",
+        "r": 72,
+        "g": 59,
+        "b": 81,
+        "c": 65,
+        "m": 71,
+        "y": 36,
+        "k": 35,
+        "meaning": "A dark, moody, and intriguing hue, sitting between blue and purple. It speaks to the transition from 2024 to 2025, representing a sense of mystery and escapism into the digital twilight.",
+        "tags": [
+            "trend",
+            "2025",
+            "purple",
+            "dark"
+        ]
+    },
+    {
+        "id": "p-2025-02",
+        "name": "Aquatic Awe",
+        "nativeName": "深海敬畏",
+        "hex": "#38a3a5",
+        "r": 56,
+        "g": 163,
+        "b": 165,
+        "c": 75,
+        "m": 12,
+        "y": 35,
+        "k": 1,
+        "meaning": "A transformative turquoise that celebrates the strange and wondrous aspects of nature, specifically the bioluminescent ecosystems of the deep ocean.",
+        "tags": [
+            "trend",
+            "2025",
+            "blue",
+            "teal"
+        ]
+    },
+    {
+        "id": "p-2025-03",
+        "name": "Ray Flower",
+        "nativeName": "射线花黄",
+        "hex": "#f7d046",
+        "r": 247,
+        "g": 208,
+        "b": 70,
+        "c": 4,
+        "m": 18,
+        "y": 82,
+        "k": 0,
+        "meaning": "A radiant yellow inspired by the regenerative power of sunshine. Ray Flower aligns with the growing focus on sustainability and solar energy.",
+        "tags": [
+            "trend",
+            "2025",
+            "yellow",
+            "bright"
+        ]
+    },
+    {
+        "id": "p-2025-04",
+        "name": "Sunset Coral",
+        "nativeName": "日落珊瑚",
+        "hex": "#ff6b6b",
+        "r": 255,
+        "g": 107,
+        "b": 107,
+        "c": 0,
+        "m": 75,
+        "y": 48,
+        "k": 0,
+        "meaning": "A vibrant, cheering coral that bridges the gap between digital vibrancy and natural warmth. Perfect for engaging social interaction.",
+        "tags": [
+            "trend",
+            "2025",
+            "red",
+            "pink"
+        ]
+    }
+]
