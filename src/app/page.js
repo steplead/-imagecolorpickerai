@@ -273,20 +273,19 @@ export default function Home() {
             </Link>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
 
-  {/* About Section */ }
-  <section className="max-w-2xl mt-16 text-neutral-600 space-y-6 pb-12">
-    <h2 className="text-xl font-bold text-neutral-900">About Image Color Picker</h2>
-    <p>
-      This free tool allows you to extract precise hex codes from any image.
-      Unlike generic pickers, we map your colors to traditional Chinese aesthetics, providing cultural context, poem meanings, and visual inspiration.
-    </p>
-    <p>
-      Simply upload a file, click on any extracted color, and discover its name (e.g., Cinnabar, Tea White) and significance in art and history.
-    </p>
-  </section>
-</main >
+      {/* About Section */}
+      <section className="max-w-2xl mt-16 text-neutral-600 space-y-6 pb-12">
+        <h2 className="text-xl font-bold text-neutral-900">About Image Color Picker</h2>
+        <p>
+          This free tool allows you to extract precise hex codes from any image.
+          Unlike generic pickers, we map your colors to traditional Chinese aesthetics, providing cultural context, poem meanings, and visual inspiration.
+        </p>
+        <p>
+          Simply upload a file, click on any extracted color, and discover its name (e.g., Cinnabar, Tea White) and significance in art and history.
+        </p>
+      </section>
+    </main >
   );
 }
