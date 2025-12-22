@@ -76,9 +76,9 @@ export function getColorsForCategory(categoryId) {
         case 'art':
             // Pigment names, Ink styles.
             return allColors.filter(c =>
-                c.nativeName.includes('墨') || // Ink
-                c.meaning.toLowerCase().includes('paint') ||
-                c.meaning.toLowerCase().includes('pigment')
+                (c.nativeName || '').includes('墨') || // Ink
+                (c.meaning || '').toLowerCase().includes('paint') ||
+                (c.meaning || '').toLowerCase().includes('pigment')
             ).slice(0, 50);
 
         default:

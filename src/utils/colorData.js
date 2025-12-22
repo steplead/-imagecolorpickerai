@@ -6,10 +6,9 @@ import natureColors from '../data/natureColors.json';
 // Normalize data structure for UI consistency
 const normalizeColor = (color, collectionId) => ({
     ...color,
-    collectionId, // 'chinese' | 'japanese'
     collectionId, // 'chinese' | 'japanese' | 'pantone' | 'nature'
-    nativeName: color.chinese || color.kanji,
-    phoneticName: color.pinyin || color.romaji,
+    nativeName: color.chinese || color.kanji || color.nativeName,
+    phoneticName: color.pinyin || color.romaji || color.phoneticName || '',
     // Ensure tags exists
     tags: color.tags || []
 });
