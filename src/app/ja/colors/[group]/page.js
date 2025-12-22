@@ -1,5 +1,5 @@
-import { ColorsCollectionView } from '../../../components/ColorsCollectionView';
-export { generateStaticParams, generateMetadata } from '../../colors/[group]/page';
+import { ColorsCollectionView } from '../../../../components/ColorsCollectionView';
+export { generateStaticParams, generateMetadata } from '../../../colors/[group]/page';
 
 export default async function JaColorsPage({ params }) {
     const resolvedParams = await params;
