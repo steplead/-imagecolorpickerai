@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import ColorThief from 'colorthief';
-import { Upload, Image as ImageIcon, ArrowRight, Palette, Copy, Check } from 'lucide-react';
+import { Upload, Image as ImageIcon, ArrowRight, Palette, Copy, Check, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { findClosestChineseColor } from '../utils/colorUtils';
 import RecentPicks from '../components/RecentPicks';
@@ -219,6 +219,38 @@ export default function Home() {
 
       {/* Social Gallery (Phase 16) */}
       <PinterestGallery />
+
+      {/* Phase 24: Viral Discovery Banner */}
+      <section className="max-w-4xl mx-auto mt-16 px-4">
+        <Link
+          href="/scan"
+          className="relative block w-full bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-3xl overflow-hidden shadow-2xl group border border-neutral-700"
+        >
+          <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-repeat"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-amber-500/20 to-transparent"></div>
+
+          <div className="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-center md:text-left">
+              <span className="inline-block py-1 px-3 rounded-full bg-amber-400 text-amber-950 text-xs font-bold tracking-widest uppercase mb-3 animate-pulse">
+                New Feature
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                What's Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-400">Color Aura</span>?
+              </h2>
+              <p className="text-neutral-300 font-serif italic max-w-sm">
+                Let our AI analyze your features to find your perfect Traditional Chinese color match.
+              </p>
+            </div>
+
+            <div className="flex-shrink-0">
+              <span className="flex items-center gap-2 px-6 py-3 bg-white text-neutral-900 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+                Scan My Aura
+              </span>
+            </div>
+          </div>
+        </Link>
+      </section>
 
       {/* Collections & Moods (Global Encyclopedia Strategy) */}
       <section className="max-w-6xl w-full mt-24 mb-16 px-4">
