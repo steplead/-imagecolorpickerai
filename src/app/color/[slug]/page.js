@@ -1,6 +1,8 @@
+```
 import Link from 'next/link';
+import JsonLd from '../../../components/JsonLd';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Tag } from 'lucide-react';
+import { ArrowLeft, Copy, Download, Share2, Palette, Info } from 'lucide-react';
 import { getColorById, getAllColors, getCollectionMetadata, getRelatedColors } from '../../../utils/colorData';
 import WallpaperGenerator from '../../../components/WallpaperGenerator';
 import ColorHarmony from '../../../components/ColorHarmony';
@@ -25,10 +27,10 @@ export async function generateMetadata({ params }) {
     const meta = getCollectionMetadata(color.collectionId);
 
     return {
-        title: `${color.name} (${color.nativeName}) - ${meta.name} | Image Color Picker AI`,
-        description: `${color.name} (${color.nativeName}, ${color.hex}) - ${color.meaning} Part of the ${meta.name} collection.`,
+        title: `${ color.name } (${ color.nativeName }) - ${ meta.name } | Image Color Picker AI`,
+        description: `${ color.name } (${ color.nativeName }, ${ color.hex }) - ${ color.meaning } Part of the ${ meta.name } collection.`,
         alternates: {
-            canonical: `/color/${color.id}`,
+            canonical: `/ color / ${ color.id } `,
         },
     };
 }
@@ -52,11 +54,35 @@ export default function ColorDetail({ params }) {
     // Calculate RGB for display
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color.hex);
     const rgb = result
-        ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})`
+        ? `rgb(${ parseInt(result[1], 16)}, ${ parseInt(result[2], 16) }, ${ parseInt(result[3], 16) })`
         : 'rgb(0,0,0)';
 
-    return (
-        <div className="min-h-screen bg-neutral-50 flex justify-center p-4 py-12 font-sans">
+    // Generate Structured Data (Product Schema)
+    const productSchema = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": `${ color.name } (Traditional Chinese Color)`,
+        "image": [
+            `https://imagecolorpickerai.com/api/og/color?id=${color.id}`
+        ],
+"description": color.meaning,
+    "brand": {
+    "@type": "Brand",
+        "name": "ImageColorPickerAI"
+},
+"offers": {
+    "@type": "Offer",
+        "url": `https://imagecolorpickerai.com/color/${color.id}`,
+            "priceCurrency": "USD",
+                "price": "0.00",
+                    "availability": "https://schema.org/InStock"
+}
+    };
+
+return (
+        <>
+        <JsonLd data={productSchema} />
+        <div className="bg-neutral-50 min-h-screen pb-20 flex justify-center p-4 py-12 font-sans">
             <div className="max-w-3xl w-full">
 
                 {/* Hero Section */}
@@ -143,6 +169,6 @@ export default function ColorDetail({ params }) {
                 </div>
             </div>
         </div>
-    );
+        );
 }
 

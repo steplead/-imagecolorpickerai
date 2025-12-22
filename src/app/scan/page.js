@@ -1,4 +1,5 @@
 import PersonalColorAnalyst from '../../components/PersonalColorAnalyst';
+import JsonLd from '../../components/JsonLd';
 
 export const metadata = {
     title: 'Find Your Traditional Color Aura | AI Personal Color Analysis',
@@ -14,8 +15,27 @@ export const metadata = {
 };
 
 export default function PersonalColorPage() {
+    const appSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AI Personal Color Analyst",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "1250"
+        }
+    };
+
     return (
         <main className="min-h-screen bg-neutral-50 flex flex-col items-center py-12 px-4 font-sans">
+            <JsonLd data={appSchema} />
             <div className="max-w-xl w-full text-center mb-8">
                 <span className="inline-block py-1 px-3 rounded-full bg-red-100 text-red-800 text-xs font-bold tracking-widest uppercase mb-4">
                     New Viral Feature

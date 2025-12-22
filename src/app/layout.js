@@ -26,7 +26,7 @@ import Header from "@/components/Header";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-neutral-50 text-neutral-900`}
         suppressHydrationWarning
