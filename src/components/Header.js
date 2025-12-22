@@ -57,9 +57,10 @@ export default function Header() {
                     <div className="relative transition-all duration-300">
                         {/* Precision Droplet Clipping */}
                         <div className="relative z-10 w-[84px] h-[84px] rounded-full overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.1] group-hover:rotate-[8deg]">
-                            src="/icon.png"
-                            alt="Image Color Picker AI"
-                            className="w-full h-full object-cover shadow-[0_4px_12px_rgba(0,0,0,0.15)] rounded-full transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.05]"
+                            <img
+                                src="/icon.png"
+                                alt="Image Color Picker AI"
+                                className="w-full h-full object-cover shadow-[0_4px_12px_rgba(0,0,0,0.15)] rounded-full transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.05]"
                             />
                         </div>
                     </div>
