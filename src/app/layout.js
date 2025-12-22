@@ -13,11 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://imagecolorpickerai.com'),
   title: "Image Color Picker - Extract Hex Codes from Images",
   description: "Upload any image to find its Traditional Chinese Color match. Extract Hex codes, RGB, and generate aesthetic wallpapers instantly.",
   // Protocol 3: No keywords tag
   alternates: {
-    canonical: 'https://imagecolorpickerai.com',
+    canonical: '/',
   },
 };
 

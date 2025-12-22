@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
         title: `${capitalized} Colors - Traditional Chinese Code Palette | ImageColorPickerAI`,
         description: `Explore our collection of ${decodedGroup} traditional Chinese colors. Find Hex codes, meanings, and aesthetic inspirations for ${decodedGroup} shades.`,
         alternates: {
-            canonical: `https://imagecolorpickerai.com/colors/${group}`,
+            canonical: `/colors/${group.toLowerCase()}`,
         },
     };
 }

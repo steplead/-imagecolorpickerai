@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
         title: `${color.name} (${color.nativeName}) - ${meta.name} | Image Color Picker AI`,
         description: `${color.name} (${color.nativeName}, ${color.hex}) - ${color.meaning} Part of the ${meta.name} collection.`,
         alternates: {
-            canonical: `https://imagecolorpickerai.com/color/${color.id}`,
+            canonical: `/color/${color.id}`,
         },
     };
 }
