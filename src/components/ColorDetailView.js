@@ -51,6 +51,42 @@ export function ColorDetailView({ params, locale = 'en' }) {
             view: 'デザインガイドを見る',
             back: 'コレクションに戻る',
             cluster: 'このカテゴリーの他の色'
+        },
+        es: {
+            meaning: `Significado Cultural (${color.collectionId === 'japanese' ? 'Kanji' : 'Chino'})`,
+            related: 'Armonía Relacionada',
+            love: '¿Te encanta este color?',
+            guide: `Obtenga la guía completa de muestras de ${collectionMeta.name}.`,
+            view: 'Ver guía de diseño',
+            back: 'Volver a la colección',
+            cluster: 'Más colores en esta categoría'
+        },
+        fr: {
+            meaning: `Signification Culturelle (${color.collectionId === 'japanese' ? 'Kanji' : 'Chinois'})`,
+            related: 'Harmonie Associée',
+            love: 'Vous aimez cette couleur ?',
+            guide: `Obtenez le guide complet des échantillons ${collectionMeta.name}.`,
+            view: 'Voir le guide de conception',
+            back: 'Retour à la collection',
+            cluster: 'Plus de couleurs dans cette catégorie'
+        },
+        de: {
+            meaning: `Kulturelle Bedeutung (${color.collectionId === 'japanese' ? 'Kanji' : 'Chinesisch'})`,
+            related: 'Verwandte Harmonie',
+            love: 'Lieben Sie diese Farbe?',
+            guide: `Holen Sie sich den vollständigen ${collectionMeta.name} Farbmuster-Leitfaden.`,
+            view: 'Design-Leitfaden anzeigen',
+            back: 'Zurück zur Sammlung',
+            cluster: 'Weitere Farben in dieser Kategorie'
+        },
+        pt: {
+            meaning: `Significado Cultural (${color.collectionId === 'japanese' ? 'Kanji' : 'Chinês'})`,
+            related: 'Harmonia Relacionada',
+            love: 'Adora esta cor?',
+            guide: `Obtenha o guia completo de amostras de ${collectionMeta.name}.`,
+            view: 'Ver guia de design',
+            back: 'Voltar para a coleção',
+            cluster: 'Mais cores nesta categoria'
         }
     };
 

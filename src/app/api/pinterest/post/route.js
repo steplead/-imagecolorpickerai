@@ -7,9 +7,17 @@ export async function POST(req) {
     try {
         const { imageUrl, title, description, link } = await req.json();
 
-        const envCtx = getRequestContext().env;
-        const accessToken = process.env.PINTEREST_ACCESS_TOKEN || (envCtx ? envCtx.PINTEREST_ACCESS_TOKEN : null);
-        const boardId = process.env.PINTEREST_BOARD_ID || (envCtx ? envCtx.PINTEREST_BOARD_ID : null);
+        let envCtx = null;
+        try {
+            if (typeof getRequestContext === 'function') {
+                envCtx = getRequestContext()?.env;
+            }
+        } catch (e) {
+            // Context not available in local dev
+        }
+
+        const accessToken = process.env.PINTEREST_ACCESS_TOKEN || envCtx?.PINTEREST_ACCESS_TOKEN;
+        const boardId = process.env.PINTEREST_BOARD_ID || envCtx?.PINTEREST_BOARD_ID;
 
         if (!accessToken || !boardId) {
             console.error("Missing Pinterest configuration.");

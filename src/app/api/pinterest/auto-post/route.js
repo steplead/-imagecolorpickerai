@@ -31,8 +31,16 @@ const STYLES = [
 
 export async function GET(req) {
     try {
-        const envCtx = getRequestContext().env;
-        const cronSecret = process.env.CRON_SECRET || (envCtx ? envCtx.CRON_SECRET : null);
+        let envCtx = null;
+        try {
+            if (typeof getRequestContext === 'function') {
+                envCtx = getRequestContext()?.env;
+            }
+        } catch (e) {
+            // Context not available in local dev
+        }
+
+        const cronSecret = process.env.CRON_SECRET || envCtx?.CRON_SECRET;
         const authHeader = req.headers.get('authorization');
 
         // Check if called with the secret key to prevent unauthorized triggers
@@ -64,7 +72,7 @@ export async function GET(req) {
         const randomStyle = STYLES[Math.floor(Math.random() * STYLES.length)];
 
         // 4. Generate Wallpaper using Replicate
-        const replicateToken = process.env.REPLICATE_API_TOKEN || (envCtx ? envCtx.REPLICATE_API_TOKEN : null);
+        const replicateToken = process.env.REPLICATE_API_TOKEN || envCtx?.REPLICATE_API_TOKEN;
         if (!replicateToken) throw new Error("Missing REPLICATE_API_TOKEN");
 
         const replicate = new Replicate({ auth: replicateToken });
@@ -87,8 +95,8 @@ export async function GET(req) {
         if (!imageUrl) throw new Error("AI generation failed");
 
         // 5. Post to Pinterest
-        const pinterestToken = process.env.PINTEREST_ACCESS_TOKEN || (envCtx ? envCtx.PINTEREST_ACCESS_TOKEN : null);
-        const boardId = process.env.PINTEREST_BOARD_ID || (envCtx ? envCtx.PINTEREST_BOARD_ID : null);
+        const pinterestToken = process.env.PINTEREST_ACCESS_TOKEN || envCtx?.PINTEREST_ACCESS_TOKEN;
+        const boardId = process.env.PINTEREST_BOARD_ID || envCtx?.PINTEREST_BOARD_ID;
 
         if (!pinterestToken || !boardId) throw new Error("Pinterest not configured");
 

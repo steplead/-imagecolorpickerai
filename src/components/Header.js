@@ -4,45 +4,72 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Palette } from 'lucide-react';
 
-const ARCHETYPE_LINKS = [
-    { id: 'red', name: 'Imperial Red', href: '/colors/red' },
-    { id: 'blue', name: 'Misty Blue', href: '/colors/blue' },
-    { id: 'green', name: 'Jade Valley', href: '/colors/green' },
-    { id: 'scan', name: 'AI Analyst', href: '/scan' },
-];
-
 const LOCALES = [
     { code: 'en', name: 'English', path: '/' },
     { code: 'zh', name: '中文', path: '/zh' },
     { code: 'ja', name: '日本語', path: '/ja' },
+    { code: 'es', name: 'Español', path: '/es' },
+    { code: 'fr', name: 'Français', path: '/fr' },
+    { code: 'de', name: 'Deutsch', path: '/de' },
+    { code: 'pt', name: 'Português', path: '/pt' },
 ];
 
 export default function Header() {
     const pathname = usePathname();
 
+    const getLocalizedLinks = (pathname) => {
+        let currentLocale = 'en';
+        if (pathname.startsWith('/zh')) currentLocale = 'zh';
+        else if (pathname.startsWith('/ja')) currentLocale = 'ja';
+        else if (pathname.startsWith('/es')) currentLocale = 'es';
+        else if (pathname.startsWith('/fr')) currentLocale = 'fr';
+        else if (pathname.startsWith('/de')) currentLocale = 'de';
+        else if (pathname.startsWith('/pt')) currentLocale = 'pt';
+
+        const translations = {
+            en: { red: 'Imperial Red', blue: 'Misty Blue', green: 'Jade Valley', scan: 'AI Analyst' },
+            zh: { red: '中国红', blue: '雾霾蓝', green: '翡翠谷', scan: 'AI分析师' },
+            ja: { red: '帝国赤', blue: '霧色', green: '翡翠の谷', scan: 'AIアナリスト' },
+            es: { red: 'Rojo Imperial', blue: 'Azul Nebuloso', green: 'Valle de Jade', scan: 'Analista AI' },
+            fr: { red: 'Rouge Impérial', blue: 'Bleu Brumeux', green: 'Vallée de Jade', scan: 'Analyste IA' },
+            de: { red: 'Kaiserrot', blue: 'Nebelblau', green: 'Jadeland', scan: 'KI-Analyst' },
+            pt: { red: 'Vermelho Imperial', blue: 'Azul Nevoado', green: 'Vale de Jade', scan: 'Analista AI' },
+        };
+
+        const t = translations[currentLocale] || translations.en;
+        const prefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
+
+        return [
+            { id: 'red', name: t.red, href: `${prefix}/colors/red` },
+            { id: 'blue', name: t.blue, href: `${prefix}/colors/blue` },
+            { id: 'green', name: t.green, href: `${prefix}/colors/green` },
+            { id: 'scan', name: t.scan, href: `${prefix}/scan` },
+        ];
+    };
+
+    const links = getLocalizedLinks(pathname);
+
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100/50">
-            <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-                {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group transition-all" title="Image Color Picker AI - Home">
-                    <div className="relative p-1 rounded-xl group-hover:bg-indigo-50 transition-all duration-300">
-                        {/* Neon Glow Layer */}
-                        <div className="absolute inset-0 bg-indigo-500/0 group-hover:bg-indigo-500/10 blur-xl rounded-full transition-all duration-500" />
-                        <img
-                            src="/icon.png"
-                            alt="Logo"
-                            className="w-8 h-8 relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-sm rounded-lg"
-                        />
+            <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+                {/* Logo Only (Proportional Size) */}
+                <Link href={pathname.startsWith('/zh') ? '/zh' : pathname.startsWith('/ja') ? '/ja' : pathname.startsWith('/es') ? '/es' : pathname.startsWith('/fr') ? '/fr' : pathname.startsWith('/de') ? '/de' : pathname.startsWith('/pt') ? '/pt' : '/'} className="flex items-center group transition-all" title="Image Color Picker AI - Home">
+                    <div className="relative transition-all duration-300">
+                        {/* Precision Droplet Clipping */}
+                        <div className="relative z-10 w-[84px] h-[84px] rounded-full overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.1] group-hover:rotate-[8deg]">
+                            <img
+                                src="/icon.png"
+                                alt="Image Color Picker AI"
+                                className="w-full h-full object-cover mix-blend-multiply scale-[1.1] brightness-[1.15] contrast-[1.15]"
+                            />
+                        </div>
                     </div>
-                    <span className="font-black text-neutral-900 tracking-tighter hidden sm:block text-lg">
-                        ImageColorPicker<span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500">AI</span>
-                    </span>
                 </Link>
 
                 {/* Navigation & Locale */}
                 <div className="flex items-center gap-2 sm:gap-6">
                     <nav className="hidden md:flex items-center gap-2">
-                        {ARCHETYPE_LINKS.map((link) => {
+                        {links.map((link) => {
                             const isActive = pathname === link.href;
                             return (
                                 <Link
@@ -64,9 +91,9 @@ export default function Header() {
 
                     <div className="flex items-center gap-1 bg-neutral-100 p-1 rounded-full">
                         {LOCALES.map((loc) => {
-                            const isActive = pathname.startsWith(loc.path) && (loc.path !== '/' || pathname === '/');
-                            // Precise check for root vs others
-                            const isExact = loc.code === 'en' ? pathname === '/' || (!pathname.startsWith('/zh') && !pathname.startsWith('/ja')) : pathname.startsWith(loc.path);
+                            const isExact = loc.code === 'en'
+                                ? (pathname === '/' || (!pathname.startsWith('/zh') && !pathname.startsWith('/ja') && !pathname.startsWith('/es') && !pathname.startsWith('/fr') && !pathname.startsWith('/de') && !pathname.startsWith('/pt')))
+                                : pathname.startsWith(loc.path);
 
                             return (
                                 <Link

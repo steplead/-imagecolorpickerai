@@ -77,28 +77,120 @@ export function getRelatedColors(color, limit = 4) {
 }
 
 // 3. Metadata Helper
-export function getCollectionMetadata(collectionId) {
-    const meta = {
-        chinese: {
-            name: 'Traditional Chinese Colors',
-            nativeName: '中国传统色',
-            description: 'Colors from the dynasties, poetry, and nature of ancient China.'
+export function getCollectionMetadata(collectionId, locale = 'en') {
+    const metaMap = {
+        en: {
+            chinese: {
+                name: 'Traditional Chinese Colors',
+                nativeName: '中国传统色',
+                description: 'Colors from the dynasties, poetry, and nature of ancient China.'
+            },
+            japanese: {
+                name: 'Traditional Japanese Colors',
+                nativeName: '日本の伝統色 (Nippon no Iro)',
+                description: 'Established over 1,000 years ago, representing the changing seasons of Japan.'
+            },
+            pantone: {
+                name: 'Pantone Trends 2025',
+                nativeName: 'Future Aesthetics',
+                description: 'Forecasted color winners and global design trends for the year 2025.'
+            },
+            nature: {
+                name: 'Nature & Earth Palettes',
+                nativeName: 'Organic Origins',
+                description: 'Organic pigments and earth tones derived from the mountains, forests, and oceans.'
+            }
         },
-        japanese: {
-            name: 'Traditional Japanese Colors',
-            nativeName: '日本の伝統色 (Nippon no Iro)',
-            description: 'Established over 1,000 years ago, representing the changing seasons of Japan.'
+        es: {
+            chinese: {
+                name: 'Colores Tradicionales Chinos',
+                nativeName: '中国传统色',
+                description: 'Colores de las dinastías, la poesía y la naturaleza de la antigua China.'
+            },
+            japanese: {
+                name: 'Colores Tradicionales Japoneses',
+                nativeName: '日本の伝統色',
+                description: 'Establecido hace más de 1.000 años, representando las estaciones cambiantes de Japón.'
+            },
+            pantone: {
+                name: 'Tendencias Pantone 2025',
+                nativeName: 'Estética Futura',
+                description: 'Ganadores de color previstos y tendencias de diseño global para el año 2025.'
+            },
+            nature: {
+                name: 'Paletas de Naturaleza y Tierra',
+                nativeName: 'Orígenes Orgánicos',
+                description: 'Pigmentos orgánicos y tonos tierra derivados de las montañas, bosques y océanos.'
+            }
         },
-        pantone: {
-            name: 'Pantone Trends 2025',
-            nativeName: 'Future Aesthetics',
-            description: 'Forecasted color winners and global design trends for the year 2025.'
+        fr: {
+            chinese: {
+                name: 'Couleurs Traditionnelles Chinoises',
+                nativeName: '中国传统色',
+                description: 'Couleurs des dynasties, de la poésie et de la nature de la Chine ancienne.'
+            },
+            japanese: {
+                name: 'Couleurs Traditionnelles Japonaises',
+                nativeName: '日本の伝統色',
+                description: 'Établi il y a plus de 1 000 ans, représentant les saisons changeantes du Japon.'
+            },
+            pantone: {
+                name: 'Tendances Pantone 2025',
+                nativeName: 'Esthétique Future',
+                description: 'Couleurs prévues et tendances mondiales du design pour l\'année 2025.'
+            },
+            nature: {
+                name: 'Palettes Nature et Terre',
+                nativeName: 'Origines Organiques',
+                description: 'Pigments organiques et tons terre issus des montagnes, forêts et océans.'
+            }
         },
-        nature: {
-            name: 'Nature & Earth Palettes',
-            nativeName: 'Organic Origins',
-            description: 'Organic pigments and earth tones derived from the mountains, forests, and oceans.'
+        de: {
+            chinese: {
+                name: 'Traditionelle chinesische Farben',
+                nativeName: '中国传统色',
+                description: 'Farben aus den Dynastien, der Poesie und der Natur des alten Chinas.'
+            },
+            japanese: {
+                name: 'Traditionelle japanische Farben',
+                nativeName: '日本の伝統色',
+                description: 'Vor über 1.000 Jahren etabliert, repräsentieren sie die wechselnden Jahreszeiten Japans.'
+            },
+            pantone: {
+                name: 'Pantone-Trends 2025',
+                nativeName: 'Zukunftsästhetik',
+                description: 'Prognostizierte Farbsieger und globale Designtrends für das Jahr 2025.'
+            },
+            nature: {
+                name: 'Natur- und Erdpaletten',
+                nativeName: 'Organische Ursprünge',
+                description: 'Organische Pigmente und Erdtöne aus Bergen, Wäldern und Ozeanen.'
+            }
+        },
+        pt: {
+            chinese: {
+                name: 'Cores Tradicionais Chinesas',
+                nativeName: '中国传统色',
+                description: 'Cores das dinastias, poesia e natureza da China antiga.'
+            },
+            japanese: {
+                name: 'Cores Tradicionais Japonesas',
+                nativeName: '日本の伝統色',
+                description: 'Estabelecido há mais de 1.000 anos, representando as estações do Japão.'
+            },
+            pantone: {
+                name: 'Tendências Pantone 2025',
+                nativeName: 'Estética Futura',
+                description: 'Vencedores de cores previstos e tendências de design global para o ano de 2025.'
+            },
+            nature: {
+                name: 'Paletas de Natureza e Terra',
+                nativeName: 'Origens Orgânicas',
+                description: 'Pigmentos orgânicos e tons de terra derivados de montanhas, florestas e oceanos.'
+            }
         }
     };
-    return meta[collectionId] || meta.chinese;
+
+    const localeMap = metaMap[locale] || metaMap.en;
+    return localeMap[collectionId] || localeMap.chinese;
 }

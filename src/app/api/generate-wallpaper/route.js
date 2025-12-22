@@ -9,8 +9,16 @@ export async function POST(request) {
     try {
         const { prompt } = await request.json();
 
-        const envCtx = getRequestContext().env;
-        const token = process.env.REPLICATE_API_TOKEN || (envCtx ? envCtx.REPLICATE_API_TOKEN : null);
+        let envCtx = null;
+        try {
+            if (typeof getRequestContext === 'function') {
+                envCtx = getRequestContext()?.env;
+            }
+        } catch (e) {
+            // Context not available in local dev
+        }
+
+        const token = process.env.REPLICATE_API_TOKEN || envCtx?.REPLICATE_API_TOKEN;
 
         if (!token) {
             console.error("Missing REPLICATE_API_TOKEN in environment.");

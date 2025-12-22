@@ -40,6 +40,15 @@ export const metadata = {
   },
   alternates: {
     canonical: '/',
+    languages: {
+      'en': '/',
+      'zh': '/zh',
+      'ja': '/ja',
+      'es': '/es',
+      'fr': '/fr',
+      'de': '/de',
+      'pt': '/pt',
+    },
   },
 };
 

@@ -5,12 +5,22 @@ export const runtime = 'edge';
 
 export async function GET(req) {
     try {
-        const envCtx = getRequestContext().env;
-        const accessToken = process.env.PINTEREST_ACCESS_TOKEN || (envCtx ? envCtx.PINTEREST_ACCESS_TOKEN : null);
-        const boardId = process.env.PINTEREST_BOARD_ID || (envCtx ? envCtx.PINTEREST_BOARD_ID : null);
+        let envCtx = null;
+        try {
+            if (typeof getRequestContext === 'function') {
+                envCtx = getRequestContext()?.env;
+            }
+        } catch (e) {
+            // Context not available (standard in local dev without wrangler)
+        }
+
+        const accessToken = process.env.PINTEREST_ACCESS_TOKEN || envCtx?.PINTEREST_ACCESS_TOKEN;
+        const boardId = process.env.PINTEREST_BOARD_ID || envCtx?.PINTEREST_BOARD_ID;
 
         if (!accessToken || !boardId) {
-            return NextResponse.json({ error: "Configuration missing" }, { status: 500 });
+            console.warn("Pinterest Config Missing - Access Token or Board ID not found in process.env or Cloudflare context.");
+            // Return empty pins instead of 500 to prevent local dev UI crashes
+            return NextResponse.json({ pins: [], warning: "Configuration missing" }, { status: 200 });
         }
 
         // Fetch Pins from the specific board

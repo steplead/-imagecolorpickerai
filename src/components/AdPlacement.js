@@ -6,14 +6,31 @@ export default function AdPlacement({ slot, format = 'auto', responsive = 'true'
     const [adLoaded, setAdLoaded] = useState(false);
 
     useEffect(() => {
-        try {
-            if (typeof window !== 'undefined' && window.adsbygoogle) {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
+        const timer = setTimeout(() => {
+            try {
+                if (typeof window !== 'undefined' && window.adsbygoogle) {
+                    const ins = document.getElementById(`ad-slot-${slot}`);
+                    // Only push if the element exists and hasn't been initialized yet
+                    if (ins && ins.offsetParent !== null && ins.offsetWidth > 0) {
+                        if (!ins.getAttribute('data-adsbygoogle-status')) {
+                            (window.adsbygoogle = window.adsbygoogle || []).push({});
+                        }
+                    } else if (ins) {
+                        // If it has no width yet, retry once after a short delay
+                        setTimeout(() => {
+                            if (ins.offsetWidth > 0 && !ins.getAttribute('data-adsbygoogle-status')) {
+                                (window.adsbygoogle = window.adsbygoogle || []).push({});
+                            }
+                        }, 500);
+                    }
+                }
+            } catch (e) {
+                console.error('AdSense error:', e);
             }
-        } catch (e) {
-            console.error('AdSense error:', e);
-        }
-    }, []);
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [slot]);
 
     return (
         <div className={`w-full overflow-hidden my-8 ${className}`}>
@@ -32,6 +49,7 @@ export default function AdPlacement({ slot, format = 'auto', responsive = 'true'
                     Using a generic placeholder for now as per Protocol 3.3 
                 */}
                 <ins
+                    id={`ad-slot-${slot}`}
                     className="adsbygoogle"
                     style={{ display: 'block' }}
                     data-ad-client="ca-pub-0000000000000000" // Placeholder

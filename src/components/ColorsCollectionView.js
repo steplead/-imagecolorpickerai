@@ -68,6 +68,26 @@ export function ColorsCollectionView({ params, locale = 'en' }) {
             found: '色の傑作が見つかりました',
             explore: '他のカテゴリーを探索する',
             view: 'パレットと意味を見る'
+        },
+        es: {
+            found: 'Obras maestras de color encontradas',
+            explore: 'Explorar otras categorías',
+            view: 'Ver paleta y significado'
+        },
+        fr: {
+            found: 'Chefs-d\'œuvre de couleurs trouvés',
+            explore: 'Explorer d\'autres catégories',
+            view: 'Voir la palette et la signification'
+        },
+        de: {
+            found: 'Meisterwerk-Farben gefunden',
+            explore: 'Andere Kategorien erkunden',
+            view: 'Palette und Bedeutung anzeigen'
+        },
+        pt: {
+            found: 'Obras-primas de cores encontradas',
+            explore: 'Explorar outras categorias',
+            view: 'Ver paleta e significado'
         }
     };
 

@@ -6,7 +6,16 @@ export async function POST(req) {
     try {
         const { colorName, hex } = await req.json();
 
-        const apiKey = process.env.OPENROUTER_API_KEY || getRequestContext().env.OPENROUTER_API_KEY;
+        let envCtx = null;
+        try {
+            if (typeof getRequestContext === 'function') {
+                envCtx = getRequestContext()?.env;
+            }
+        } catch (e) {
+            // Context not available in local dev
+        }
+
+        const apiKey = process.env.OPENROUTER_API_KEY || envCtx?.OPENROUTER_API_KEY;
 
         if (!apiKey) {
             return NextResponse.json({ error: "Missing API Key" }, { status: 500 });

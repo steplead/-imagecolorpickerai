@@ -80,7 +80,7 @@ export default function sitemap() {
         }
     });
 
-    // 6. Multilingual Expansion (ZH/JA)
+    // 6. Multilingual Expansion (ZH/JA/ES/FR/DE/PT)
     const zhRoutes = [
         ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/zh/color/') })),
         ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/zh/colors/') }))
@@ -88,6 +88,22 @@ export default function sitemap() {
     const jaRoutes = [
         ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/ja/color/') })),
         ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/ja/colors/') }))
+    ];
+    const esRoutes = [
+        ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/es/color/') })),
+        ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/es/colors/') }))
+    ];
+    const frRoutes = [
+        ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/fr/color/') })),
+        ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/fr/colors/') }))
+    ];
+    const deRoutes = [
+        ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/de/color/') })),
+        ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/de/colors/') }))
+    ];
+    const ptRoutes = [
+        ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/pt/color/') })),
+        ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/pt/colors/') }))
     ];
 
     return [
@@ -97,6 +113,10 @@ export default function sitemap() {
         ...colorRoutes,
         ...vsRoutes,
         ...zhRoutes,
-        ...jaRoutes
+        ...jaRoutes,
+        ...esRoutes,
+        ...frRoutes,
+        ...deRoutes,
+        ...ptRoutes
     ];
 }
