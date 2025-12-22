@@ -27,7 +27,7 @@ export default function Footer() {
 
                     {/* Brand Column */}
                     <div className="col-span-1 md:col-span-1">
-                        <Link href="/" className="flex items-center gap-2 mb-4 group">
+                        <Link href="/" className="flex items-center gap-2 mb-4 group" title="Image Color Picker AI - Home Catalog">
                             <div className="bg-neutral-900 p-1.5 rounded-lg group-hover:bg-red-900 transition-colors">
                                 <Palette className="w-5 h-5 text-white" />
                             </div>
@@ -49,7 +49,7 @@ export default function Footer() {
                         <ul className="space-y-4">
                             {collections.map(item => (
                                 <li key={item.name}>
-                                    <Link href={item.href} className="text-sm text-neutral-500 hover:text-red-700 transition">
+                                    <Link href={item.href} title={`Explore ${item.name}`} className="text-sm text-neutral-500 hover:text-red-700 transition">
                                         {item.name}
                                     </Link>
                                 </li>
@@ -63,7 +63,7 @@ export default function Footer() {
                         <ul className="space-y-4">
                             {tools.map(item => (
                                 <li key={item.name}>
-                                    <Link href={item.href} className="text-sm text-neutral-500 hover:text-red-700 transition">
+                                    <Link href={item.href} title={`Use ${item.name}`} className="text-sm text-neutral-500 hover:text-red-700 transition">
                                         {item.name}
                                     </Link>
                                 </li>

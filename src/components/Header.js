@@ -24,7 +24,7 @@ export default function Header() {
         <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100/50">
             <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group transition-all">
+                <Link href="/" className="flex items-center gap-2 group transition-all" title="Image Color Picker AI - Home">
                     <div className="bg-neutral-900 p-1.5 rounded-lg text-white group-hover:bg-red-600 transition-colors">
                         <Palette className="w-5 h-5" />
                     </div>
@@ -42,6 +42,7 @@ export default function Header() {
                                 <Link
                                     key={link.id}
                                     href={link.href}
+                                    title={`Explore ${link.name} Colors`}
                                     className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${isActive
                                         ? 'bg-neutral-900 text-white shadow-lg'
                                         : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100'

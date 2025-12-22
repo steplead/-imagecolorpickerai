@@ -200,7 +200,7 @@ export default function Home() {
 
                         <div className="flex gap-2 mt-4">
                           {match.tags && match.tags.map(tag => (
-                            <Link key={tag} href={`/colors/${tag}`} className="text-xs bg-neutral-100 text-neutral-600 px-2 py-1 rounded hover:bg-neutral-200">
+                            <Link key={tag} href={`/colors/${tag}`} title={`View all ${tag} colors`} className="text-xs bg-neutral-100 text-neutral-600 px-2 py-1 rounded hover:bg-neutral-200">
                               #{tag}
                             </Link>
                           ))}
@@ -214,6 +214,7 @@ export default function Home() {
                   {match && (
                     <Link
                       href={`/color/${match.id}`}
+                      title={`Full Details for ${match.name}`}
                       className="flex items-center gap-2 bg-neutral-900 text-white px-5 py-3 rounded-xl font-medium hover:bg-neutral-800 transition shadow-lg hover:shadow-xl translate-y-2 group"
                     >
                       <span>Pick Palette</span>
@@ -237,6 +238,7 @@ export default function Home() {
       <section className="max-w-4xl mx-auto mt-16 px-4">
         <Link
           href="/scan"
+          title="Predict Your Color DNA with AI"
           className="relative block w-full bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-3xl overflow-hidden shadow-2xl group border border-neutral-700"
         >
           <div className="absolute inset-0 opacity-30 bg-repeat"></div>
@@ -276,6 +278,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <Link
             href="/colors/chinese"
+            title="Explore Traditional Chinese Colors"
             className="relative h-64 rounded-3xl overflow-hidden group shadow-2xl transition-all hover:scale-[1.01]"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-red-700 to-amber-900" />
@@ -287,6 +290,7 @@ export default function Home() {
 
           <Link
             href="/colors/japanese"
+            title="Explore Japanese Harmony Palette"
             className="relative h-64 rounded-3xl overflow-hidden group shadow-2xl transition-all hover:scale-[1.01]"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-pink-400 to-rose-300" />
@@ -303,6 +307,7 @@ export default function Home() {
             <Link
               key={tag}
               href={`/colors/${tag.toLowerCase()}`}
+              title={`View ${tag} color group`}
               className="px-6 py-3 bg-white border border-neutral-100 rounded-xl text-neutral-600 font-medium hover:bg-neutral-50 hover:border-neutral-200 transition shadow-sm"
             >
               Pick {tag} Colors

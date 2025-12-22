@@ -130,15 +130,15 @@ export function ColorDetailView({ params, locale = 'en' }) {
 
                             {/* Tags (Classification Strategy) */}
                             <div className="mt-8 flex flex-wrap gap-2">
-                                {color.tags && color.tags.map(tag => (
-                                    <Link
-                                        key={tag}
-                                        href={`/colors/${tag}`}
-                                        className="flex items-center gap-1 px-3 py-1.5 bg-neutral-100 text-neutral-600 rounded-lg text-sm hover:bg-neutral-200 transition"
-                                    >
-                                        <Tag className="w-3 h-3" />
-                                        {tag}
-                                    </Link>
+                                <Link
+                                    key={tag}
+                                    href={`/colors/${tag}`}
+                                    title={`See all ${tag} colors`}
+                                    className="flex items-center gap-1 px-3 py-1.5 bg-neutral-100 text-neutral-600 rounded-lg text-sm hover:bg-neutral-200 transition"
+                                >
+                                    <Tag className="w-3 h-3" />
+                                    {tag}
+                                </Link>
                                 ))}
                             </div>
 
@@ -185,6 +185,7 @@ export function ColorDetailView({ params, locale = 'en' }) {
                                 <Link
                                     key={c.id}
                                     href={`${locale === 'en' ? '' : `/${locale}`}/color/${c.id}`}
+                                    title={`View details for ${c.name}`}
                                     className="group block"
                                 >
                                     <div

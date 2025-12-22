@@ -86,6 +86,7 @@ export function ColorsCollectionView({ params, locale = 'en' }) {
                         <Link
                             key={color.id}
                             href={`${locale === 'en' ? '' : `/${locale}`}/color/${color.id}`}
+                            title={`Full details and palette for ${color.name}`}
                             className="block group bg-white rounded-xl shadow-sm hover:shadow-md transition border border-neutral-100 overflow-hidden"
                         >
                             <div
@@ -112,6 +113,7 @@ export function ColorsCollectionView({ params, locale = 'en' }) {
                             <Link
                                 key={tag}
                                 href={`${locale === 'en' ? '' : `/${locale}`}/colors/${tag}`}
+                                title={`Explore the ${tag} collection`}
                                 className={`px-3 py-1 text-sm rounded-full border transition ${tag === group ? 'bg-neutral-900 text-white border-neutral-900' : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-400'}`}
                             >
                                 {tag}
