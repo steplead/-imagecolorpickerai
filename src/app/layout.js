@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   metadataBase: new URL('https://imagecolorpickerai.com'),
-  title: "Image Color Picker - Extract Hex Codes from Images",
-  description: "Upload any image to find its Traditional Chinese Color match. Extract Hex codes, RGB, and generate aesthetic wallpapers instantly.",
+  title: "Image Color Picker - Professional Hex Code Extraction | ImageColorPickerAI",
+  description: "Free online Image Color Picker. Extract precise Hex codes, RGB, and discover Traditional Chinese & Japanese color palettes instantly. No sign-up required.",
   openGraph: {
     title: "Image Color Picker AI - Traditional Color Encyclopedia",
     description: "Extract precise hex codes and cultural history from any image using AI.",

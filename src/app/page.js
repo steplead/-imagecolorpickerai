@@ -103,7 +103,7 @@ export default function Home() {
       {/* SEO Headline (H1 Strategy) */}
       <div className="text-center mb-10 max-w-2xl px-4">
         <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight mb-4">
-          Image Color Picker <span className="text-red-600">&</span> Traditional Encyclopedia
+          Image Color Picker <span className="text-red-600">AI</span> & Traditional Encyclopedia
         </h1>
         <p className="text-lg text-neutral-500 font-serif italic">
           Extract precise Hex codes from any image and discover the cultural significance of Traditional Chinese and Japanese colors.
