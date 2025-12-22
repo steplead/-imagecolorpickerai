@@ -115,13 +115,16 @@ export default function Home() {
           ) : (
             <>
               {typeof image === 'string' && image && (
-                <img
-                  ref={imgRef}
-                  src={image}
-                  alt="Uploaded"
-                  className="w-full h-full object-contain max-h-[500px]"
-                  onLoad={() => setTimeout(extractColors, 100)}
-                />
+                <figure className="w-full h-full flex items-center justify-center p-4">
+                  <img
+                    ref={imgRef}
+                    src={image}
+                    alt="User uploaded image for color analysis - ImageColorPickerAI Tool Preview"
+                    title="Your uploaded image"
+                    className="w-full h-full object-contain max-h-[500px] shadow-sm rounded-lg"
+                    onLoad={() => setTimeout(extractColors, 100)}
+                  />
+                </figure>
               )}
               <div className="absolute bottom-4 right-4 flex gap-2">
                 <button
