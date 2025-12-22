@@ -30,12 +30,18 @@ export async function generateMetadata({ params }) {
         description: `Explore our collection of ${decodedGroup} traditional Chinese colors. Find Hex codes, meanings, and aesthetic inspirations for ${decodedGroup} shades.`,
         alternates: {
             canonical: `/colors/${group.toLowerCase()}`,
+            languages: {
+                'en': `/colors/${group.toLowerCase()}`,
+                'zh-Hans': `/zh/colors/${group.toLowerCase()}`,
+                'ja': `/ja/colors/${group.toLowerCase()}`,
+                'x-default': `/colors/${group.toLowerCase()}`,
+            },
         },
     };
 }
 
 // 3. Page Component
-export default async function Page({ params }) {
+export default async function Page({ params, locale = 'en' }) {
     const { group } = await params;
     if (!group) return notFound();
 
@@ -78,6 +84,26 @@ export default async function Page({ params }) {
         desc: `A curated selection of traditional Chinese ${decodedGroup} shades, each with a story of culture and history.`
     };
 
+    const labels = {
+        en: {
+            found: 'Masterpiece Colors Found',
+            explore: 'Explore Other Categories',
+            view: 'View Palette & Meaning'
+        },
+        zh: {
+            found: '种杰作颜色已找到',
+            explore: '探索其他类别',
+            view: '查看配色与含义'
+        },
+        ja: {
+            found: '色の傑作が見つかりました',
+            explore: '他のカテゴリーを探索する',
+            view: 'パレットと意味を見る'
+        }
+    };
+
+    const t = labels[locale] || labels.en;
+
     return (
         <div className="min-h-screen bg-neutral-50 p-4 py-12 font-sans">
             <div className="max-w-4xl mx-auto">
@@ -89,7 +115,7 @@ export default async function Page({ params }) {
                         {currentArchetype.desc}
                     </p>
                     <div className="mt-4 text-xs font-bold text-neutral-300 uppercase tracking-widest">
-                        {colors.length} Masterpiece Colors Found
+                        {colors.length} {t.found}
                     </div>
                 </div>
 
@@ -118,7 +144,7 @@ export default async function Page({ params }) {
 
                 {/* Navigation to other tags */}
                 <div className="mt-16 pt-8 border-t border-neutral-200">
-                    <h3 className="text-sm font-bold uppercase text-neutral-400 tracking-wider mb-4">Explore Other Categories</h3>
+                    <h3 className="text-sm font-bold uppercase text-neutral-400 tracking-wider mb-4">{t.explore}</h3>
                     <div className="flex flex-wrap gap-2">
                         {['red', 'blue', 'green', 'warm', 'cool', 'nature'].map(tag => (
                             <Link

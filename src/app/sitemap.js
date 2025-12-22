@@ -68,5 +68,23 @@ export default function sitemap() {
         }
     });
 
-    return [...routes, ...collectionRoutes, ...ideaRoutes, ...colorRoutes, ...vsRoutes];
+    // 6. Multilingual Expansion (ZH/JA)
+    const zhRoutes = [
+        ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/zh/color/') })),
+        ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/zh/colors/') }))
+    ];
+    const jaRoutes = [
+        ...colorRoutes.map(r => ({ ...r, url: r.url.replace('/color/', '/ja/color/') })),
+        ...collectionRoutes.map(r => ({ ...r, url: r.url.replace('/colors/', '/ja/colors/') }))
+    ];
+
+    return [
+        ...routes,
+        ...collectionRoutes,
+        ...ideaRoutes,
+        ...colorRoutes,
+        ...vsRoutes,
+        ...zhRoutes,
+        ...jaRoutes
+    ];
 }

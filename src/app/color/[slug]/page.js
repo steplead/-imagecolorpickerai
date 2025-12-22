@@ -30,12 +30,18 @@ export async function generateMetadata({ params }) {
         title: `${color.name} (${color.nativeName}) - ${meta.name} | Image Color Picker AI`,
         description: `${color.name} (${color.nativeName}, ${color.hex}) - ${color.meaning} Part of the ${meta.name} collection.`,
         alternates: {
-            canonical: `/ color / ${color.id} `,
+            canonical: `/color/${color.id}`,
+            languages: {
+                'en': `/color/${color.id}`,
+                'zh-Hans': `/zh/color/${color.id}`,
+                'ja': `/ja/color/${color.id}`,
+                'x-default': `/color/${color.id}`,
+            },
         },
     };
 }
 
-export default function ColorDetail({ params }) {
+export default function ColorDetail({ params, locale = 'en' }) {
     const color = getColorById(params.slug);
 
     if (!color) {
@@ -45,8 +51,35 @@ export default function ColorDetail({ params }) {
     // Get Metadata for UI labels
     const collectionMeta = getCollectionMetadata(color.collectionId);
 
-    // Dynamic Labels based on collection
-    const nativeLabel = color.collectionId === 'japanese' ? 'Kanji' : 'Chinese';
+    // Dynamic Labels based on locale and collection
+    const labels = {
+        en: {
+            meaning: `Cultural Meaning (${color.collectionId === 'japanese' ? 'Kanji' : 'Chinese'})`,
+            related: 'Related Harmony',
+            love: 'Love this color?',
+            guide: `Get the complete ${collectionMeta.name} Swatch Guide.`,
+            view: 'View Design Guide',
+            back: 'Back to Collection'
+        },
+        zh: {
+            meaning: `文化背景 (${color.collectionId === 'japanese' ? '日文' : '中文'})`,
+            related: '相关配色',
+            love: '喜欢这个颜色吗？',
+            guide: `获取完整的 ${collectionMeta.name} 设计指南。`,
+            view: '查看设计指南',
+            back: '返回集合'
+        },
+        ja: {
+            meaning: `文化的背景 (${color.collectionId === 'japanese' ? '漢字' : '中国語'})`,
+            related: '関連配色',
+            love: 'この色が気に入りましたか？',
+            guide: `完全な ${collectionMeta.name} スウォッチガイドを入手。`,
+            view: 'デザインガイドを見る',
+            back: 'コレクションに戻る'
+        }
+    };
+
+    const t = labels[locale] || labels.en;
 
     // Find related colors using Service
     const relatedColors = getRelatedColors(color);
@@ -116,7 +149,7 @@ export default function ColorDetail({ params }) {
                             <ColorActions hex={color.hex} rgb={rgb} colorName={color.name} />
 
                             <div className="prose prose-neutral max-w-none mt-10">
-                                <h3 className="text-sm font-bold uppercase text-neutral-400 tracking-wider mb-2">Cultural Meaning ({nativeLabel})</h3>
+                                <h3 className="text-sm font-bold uppercase text-neutral-400 tracking-wider mb-2">{t.meaning}</h3>
                                 <p className="text-lg leading-relaxed text-neutral-700">
                                     {color.meaning}
                                 </p>
@@ -161,10 +194,10 @@ export default function ColorDetail({ params }) {
 
                     {/* Affiliate / Upsell Placeholder (Monetization Protocol) */}
                     <div className="mt-12 p-8 bg-sky-50 rounded-2xl border border-sky-100 text-center">
-                        <h3 className="text-lg font-bold text-sky-900 mb-2">Love this color?</h3>
-                        <p className="text-sky-700 mb-4">Get the complete {collectionMeta.name} Swatch Guide.</p>
+                        <h3 className="text-lg font-bold text-sky-900 mb-2">{t.love}</h3>
+                        <p className="text-sky-700 mb-4">{t.guide}</p>
                         <button className="px-6 py-2 bg-sky-600 text-white rounded-lg font-medium hover:bg-sky-700 transition">
-                            View Design Guide
+                            {t.view}
                         </button>
                     </div>
                 </div>
